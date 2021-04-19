@@ -1,0 +1,209 @@
+<div class="product-usp-container">
+  <ul class="product-usp">
+    
+<!--     <li class="product-usp-item">
+      <img src="{{ 'usp-1.svg' | asset_url }}" alt="same day delivery icon" class="product-usp-item__icon" />
+      <p class="product-usp-item__info">
+        Free same day delivery within the GTA
+      </p>
+      <a href="#" class="product-usp-item__link" id="product-usp-1">Learn more</a>
+    </li> -->
+    
+    <li class="product-usp-item">
+      <img src="{{ 'usp-2.svg' | asset_url }}" alt="express delivery icon" class="product-usp-item__icon" />
+      <p class="product-usp-item__info">
+        Free 1-2 day express delivery within Canada. <a href="#" class="product-usp-item__link" id="product-usp-2">Learn more</a>
+      </p>
+    </li>
+    
+  </ul>
+</div>
+
+{% comment %}
+<button type="button" id="sr-trigger" class="sr-trigger">Our shipping and returns policy</button>
+{% endcomment %}
+
+<div class="pop-up-modal sr-info-modal" id="modal-product-usp-1" role="dialog" aria-labelledby=">{{ pages.shipping-returns.title }}" aria-describedby="Learn more about Shipping and Returns">
+  <div tabindex="0" class="pop-up-content">
+    <span tabindex="0" class="close-button" id="modal-product-usp-1__close">&times;</span>
+    <h4 class="pop-up-modal__title">Super-fast just got faster with same-day delivery.</h4>
+    <div class="pop-up-modal__body">
+      <p>
+        We are pleased to offer same-day delivery when orders are placed before 8am EST within the Greater Toronto Area*. Orders over $69+ enjoy the added benefit of FREE same-day delivery. At check-out, delivery availability and options will appear where available (<a target="_blank" href="https://www.google.com/maps/d/u/0/viewer?mid=1KJBqxC5YSFMYRC4KjkvY4xb66DlHPz-o&ll=43.61711251532798%2C-79.36620245000002&z=9">service map</a>). Any orders that are placed after 8am EST will arrive the next day. 
+      </p>
+      <p>
+        <small>* In cases where package dimensions and weight are exceptional; orders will be shipped ground. </small>
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="pop-up-modal sr-info-modal" id="modal-product-usp-2" role="dialog" aria-labelledby=">{{ pages.shipping-returns.title }}" aria-describedby="Learn more about Shipping and Returns">
+  <div tabindex="0" class="pop-up-content">
+    <span tabindex="0" class="close-button" id="modal-product-usp-2__close">&times;</span>
+    <h4 class="pop-up-modal__title">Enjoy the convenience of Express Shipping!</h4>
+    <div class="pop-up-modal__body">
+      <p>
+        Express shipping is a premium service available to all orders. <strong>Orders over $69+ enjoy the added benefit of FREE express shipping*.</strong>
+      </p>
+      <p>
+        <small>* In cases where package dimensions, weight or remoteness of delivery address are exceptional; orders will be shipped by ground. </small>
+      </p>
+      
+      <img src="{{ 'c6_standard-express-shipping-updated.jpg' | asset_url }}" alt="express shipping map">
+      
+      <h5>The following is a province breakdown of delivery times:</h5>
+      <ul>
+        <li>AB, BC, ON, QC: 1-2 business days</li>
+        <li>MB, NB, NL, NS, PE, SK: 1-3 business days</li>
+        <li>NT, YT, NU: 3-5 business days</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<style>
+  
+  div[data-product-form-area] {
+    display: grid;
+  }
+  
+  .product-usp-container {
+    grid-row-start: 2;
+  }
+  
+  .product-usp {
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 8px;
+    text-align: center;
+  }
+  
+  .product-usp-item {
+    padding: 12px 8px;
+/*     background: rgb(227 35 28 / .1); */
+    border: 2px solid #f4f4f4;
+    border-radius: 8px;
+  }
+  
+  .product-usp-item__info {
+    font-size: 14px;
+    font-weight: 500 !important;
+    margin: 8px 0px;
+  }
+  
+  .product-usp-item__link {
+    font-size: 14px !important;
+    color: #e3231c;
+  }
+</style>
+
+
+<script>
+  
+  (function () {
+    
+    console.log("snippet script")
+//     
+//     
+    const usp1 = function() {
+      const modalUsp1 = document.getElementById("modal-product-usp-1");
+      const modalUsp1Close = document.getElementById("modal-product-usp-1__close");
+      
+      const usp1Trigger = document.getElementById("product-usp-1");
+      
+      // Move modal to end of body
+      document.body.appendChild(modalUsp1);
+
+      function toggleModal() {
+        modalUsp1.classList.toggle("show-pop-up");
+      }
+
+      function windowOnClick(event) {
+        if (event.target === modalUsp1) {
+          toggleModal();
+        }
+        setTimeout(function(){
+          $('#modal-product-usp-1 .pop-up-content').focus();
+        }, 200);
+      }
+
+      $("#modal-product-usp-1 .pop-up-content").keyup(function(e) {
+        if (e.keyCode === 13 || e.keyCode === 27 ) {
+          toggleModal();
+        }
+      });
+
+      usp1Trigger.addEventListener("click", toggleModal);
+      modalUsp1Close.addEventListener("click", toggleModal);
+      window.addEventListener("click", windowOnClick);
+    }
+    
+    
+//     
+//     
+    const usp2 = function() {
+      const modalUsp2 = document.getElementById("modal-product-usp-2");
+      const modalUsp2Close = document.getElementById("modal-product-usp-2__close");
+      
+      const usp2Trigger = document.getElementById("product-usp-2");
+      
+      // Move modal to end of body
+      document.body.appendChild(modalUsp2);
+
+      function toggleModal() {
+        modalUsp2.classList.toggle("show-pop-up");
+      }
+
+      function windowOnClick(event) {
+        if (event.target === modalUsp1) {
+          toggleModal();
+        }
+        setTimeout(function(){
+          $('#modal-product-usp-2 .pop-up-content').focus();
+        }, 200);
+      }
+
+      $("#modal-product-usp-2 .pop-up-content").keyup(function(e) {
+        if (e.keyCode === 13 || e.keyCode === 27 ) {
+          toggleModal();
+        }
+      });
+
+      usp2Trigger.addEventListener("click", toggleModal);
+      modalUsp2Close.addEventListener("click", toggleModal);
+      window.addEventListener("click", windowOnClick);
+    }
+
+    
+
+      
+    // Shipping and returns pop-up      
+    const usp1Trigger = document.getElementById("product-usp-1");
+
+    if(usp1Trigger != null) {
+      usp1Trigger.addEventListener('click', function(){
+        console.log("testing");
+      })
+      usp1();
+    }
+    
+    
+//     
+    const usp2Trigger = document.getElementById("product-usp-2");
+
+    if(usp2Trigger != null) {
+      usp2Trigger.addEventListener('click', function(){
+        console.log("testing");
+      })
+      usp2();
+    }
+      
+
+    
+    console.log("snippet script end")
+    
+  })();
+</script>

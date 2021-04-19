@@ -1,0 +1,65 @@
+{% comment %}
+  This file handles each block available on product.sections or page.sections templates.
+  Each block is a near identical duplicate of a section also available on the home page.
+  Exception is sections that had blocks become hard coded options.
+{% endcomment %}
+<div class="page-blocks" style="background: {{ section.settings.page_background_color }}">
+  {% for block in section.blocks %}
+    {% if template contains "product" and block.settings.productHandle != product.handle %}
+      {% comment %} don't show {% endcomment %}
+    {% elsif template contains "page" and block.settings.pageHandle != blank and block.settings.pageHandle != page.handle %}
+      {% comment %} don't show {% endcomment %}
+    {% else %}
+        {% case block.type %}
+
+          {% when 'block--banner' %}
+            {% include 'page-block--banner' %}
+          
+          {% when 'block--video' %}
+            {% include 'page-block--video' %}
+
+          {% when 'block--html' %}
+            {% include 'page-block--custom-html' %}
+
+
+          {% when 'block--faq-heading' %}
+            {% include 'page-block--faq-heading' %}
+
+          {% when 'block--faq' %}
+            {% include 'page-block--faq' %}            
+
+
+          {% when 'block--location-with-text' %}
+            {% include 'page-block--location-with-text' %}
+
+          {% when 'block--image-with-text' %}
+            {% include 'page-block--image-with-text' %}
+
+          {% when 'block--text-columns' %}
+            {% include 'page-block--text-columns' %}
+
+          
+
+          {% when 'block--promo-grid' %}
+            {% include 'page-block--promo-grid' %}
+
+          {% when 'block--testimonials' %}
+            {% include 'page-block--testimonials' %}
+          
+          {% when 'block--highlights' %}
+            {% include 'page-block--highlights' %}
+
+          {% when 'block--feature-collection' %}
+            {% include 'page-block--featured-collection' %}
+
+          {% when 'block--reviews' %}
+            {% include 'page-block--reviews' %}
+
+
+          {% when 'block--contact-form' %}
+            {% include 'page-block--contact-form' %}
+
+        {% endcase %}
+    {% endif %}
+  {% endfor %}
+</div>

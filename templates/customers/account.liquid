@@ -1,0 +1,611 @@
+<!-- THIS IS MY CUSTOM SCSS -->
+
+<!-- END NEW CODE  -->
+<section
+  class="account-page account-page-details"
+  data-template-account>
+  <div class="customer-banner">
+    <div class="menu">
+      {% if customer.addresses.size > 0 %}
+        {% if customer.addresses[0].company != "" and customer.addresses[0].phone != "" %}
+          <div class="menu-item-4">{{ customer.addresses[0].company }}</div>
+          <div class="menu-item-4 customer-name">{{ customer.addresses[0].name }}</div>
+          <div class="menu-item-4">{{ customer.email }}</div>
+          <div class="menu-item-4 customer-phone">{{ customer.addresses[0].phone }}</div>
+        {% elsif customer.addresses[0].company == "" and customer.addresses[0].phone == "" %}
+          <div class="menu-item-2 customer-name">{{ customer.addresses[0].name }}</div>
+          <div class="menu-item-2">{{ customer.email }}</div>
+        {% elsif customer.addresses[0].company != "" or customer.addresses[0].phone != "" %}
+          {% if customer.addresses[0].company != "" %}
+            <div class="menu-item-3">{{ customer.addresses[0].company }}</div>
+          {% endif %}
+          <div class="menu-item-3 customer-name">{{ customer.addresses[0].name }}</div>
+          <div class="menu-item-3">{{ customer.email }}</div>
+          {% if customer.addresses[0].phone != "" %}
+            <div class="menu-item-3 customer-phone">{{ customer.addresses[0].phone }}</div>
+          {% endif %}
+        {% endif %}
+      {% else %}
+        {% if customer.phone %}
+          <div class="menu-item-3 customer-name">{{ customer.name }}</div>
+          <div class="menu-item-3">{{ customer.email }}</div>
+          <div class="menu-item-3 customer-phone">{{ customer.phone }}</div>
+        {% else %}
+          <div class="menu-item-2 customer-name">{{ customer.name }}</div>
+          <div class="menu-item-2">{{ customer.email }}</div>
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+  <div class="customer-category">
+    <div class="customer-category-row">
+      <div class="customer-category-col" id="details">
+        <div>
+          <img src="{{ 'Icons-01.png' | asset_url }}" alt="MY ACCOUNT" />
+        </div>
+        <div class="customer-category-text">
+          <span>MY ACCOUNT</span>
+        </div>
+      </div>
+      <div class="customer-category-col" id="orders">
+        <div>
+          <img src="{{ 'Icons-02.png' | asset_url }}" alt="ORDER HISTORY" />
+        </div>
+        <div class="customer-category-text">
+          <span>ORDER HISTORY</span>
+        </div>
+      </div>
+      <div class="customer-category-col" id="invoices">
+        <div>
+          <img src="{{ 'Icons-03.png' | asset_url }}" alt="INVOICES" />
+        </div>
+        <div class="customer-category-text">
+          <span>INVOICES</span>
+        </div>
+      </div>
+    </div>
+    <div class="customer-category-row">
+      <div class="customer-category-col" id="teams">
+        <div>
+          <img src="{{ 'Icons-04.png' | asset_url }}" alt="ACCOUNT TEAM" />
+        </div>
+        <div class="customer-category-text">
+          <span>ACCOUNT TEAM</span>
+        </div>
+      </div>
+      <div class="customer-category-col">
+        <a href="a/subscriptions" class="td-none">
+          <div>
+            <img src="{{ 'Icons-05.png' | asset_url }}" alt="SUBSCRIPTIONS" />
+          </div>
+          <div class="customer-category-text">
+            <span>SUBSCRIPTIONS</span>
+          </div>
+        </a>
+      </div>
+      <div class="customer-category-col">
+        <a href="blogs/news" class="td-none">
+          <div>
+            <img src="{{ 'Icons-06.png' | asset_url }}" alt="VIEW OUR BLOG" />
+          </div>
+          <div class="customer-category-text">
+            <span>VIEW OUR BLOG</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="account-details display-none">
+    <div class="detail-menu">
+      <span class="details-hide cursor-pointer">My Account</span><span> > </span><span class="cursor-pointer">My Account Details</span>
+      <p>my account details</p>
+    </div>
+    <div class="detail-items">
+      <div class="detail-item">
+        <div class="details">
+          <div class="detail-title">Name:</div>
+          {% if customer.addresses[0].name %}
+            <div class="detail-information customer-name">{{ customer.addresses[0].name }}</div>
+          {% else %}
+            <div class="detail-information customer-name">{{ customer.name }}</div>
+          {% endif %}
+        </div>
+        <div class="button-box">
+          {% if customer.addresses[0].name %}
+          <a id="edit-name" class="button button-primary cursor-pointer">
+            <span class="button-text">EDIT</span>
+          </a>
+          {% endif %}
+        </div>
+      </div>
+      <div class="detail-item">
+        <div class="details">
+          <div class="detail-title">e-mail:</div>
+          <div class="detail-information">{{ customer.email }}</div>
+        </div>
+        <div class="button-box">
+          <a id="edit-email" class="button button-primary cursor-pointer">
+            <span class="button-text">EDIT</span>
+          </a>
+        </div>
+      </div>
+      {% if customer.addresses.size > 0 or customer.phone %}
+      <div class="detail-item">
+        <div class="details">
+          <div class="detail-title">Phone Number:</div>
+          {% if customer.addresses[0].phone %}
+          <div class="detail-information customer-phone"><span>{{ customer.addresses[0].phone }} </span></div>
+          {% else %}
+          <div class="detail-information customer-phone"><span>{{ customer.phone }} </span></div>
+          {% endif %}
+        </div>
+        <div class="button-box">
+          {% if customer.addresses[0].phone != "" %}
+            <a id="phone-number" class="button button-primary cursor-pointer edit-phone-number">
+              <span class="button-text">EDIT</span>
+            </a>
+          {% else %}
+            <a id="phone-number" class="button button-primary cursor-pointer add-phone edit-phone-number">
+              <span class="button-text">Add Phone Number</span>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+      <div class="detail-item">
+        <div class="details">
+          <div class="detail-title">Password</div>
+          <div class="detail-information">******</div>
+        </div>
+        <div class="button-box">
+          <a id="edit-password" class="button button-primary cursor-pointer">
+            <span class="button-text">EDIT</span>
+          </a>
+        </div>
+      </div>
+      <div class="detail-item">
+        <div class="details">
+          <div class="detail-title">Your Address:</div>
+          <div class="detail-information">Edit addresses for your orders</div>
+        </div>
+        <div class="button-box">
+          <a href="account/addresses" class="button button-primary">
+            <span class="button-text">EDIT</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="account-orders display-none">
+    <div class="detail-menu">
+      <span class="orders-hide cursor-pointer">My Account</span><span> > </span><span class="cursor-pointer">Order History</span>
+      <p>order history</p>
+    </div>
+    <div class="order-items">
+      <table class="account-table account-table-cell">
+        <thead>
+          <tr>
+            <th class="account-table-cell t-font ta-l">Order</th>
+            <th class="account-table-cell t-font ta-l">Date</th>
+            <th class="account-table-cell t-font ta-l">Status</th>
+            <th class="account-table-cell t-font ta-c">Payment</th>
+            <th class="account-table-cell t-font ta-c">Total</th>
+            <th class="account-table-cell t-font ta-c">Buy Again</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if customer.orders.size > 0 %}
+            {% for order in customer.orders %}
+              <tr>
+                <td class="account-table-cell t-font ta-l td-none order-link-text">
+                  {%- capture order_link -%}
+                    {{ order.name }}
+                  {%- endcapture -%}
+
+                  {{ order_link | strip_newlines | link_to: order.customer_url, order.name }}
+                </td>
+                <td class="account-table-cell t-font ta-l">{{ order.created_at | date: "%m/%d/%Y" }}</td>
+                <td class="account-table-cell t-font ta-l">{{ order.fulfillment_status_label }}</td>
+                <td class="account-table-cell t-font ta-c">{{ order.financial_status_label }}</td>
+                <td class="account-table-cell t-font ta-c">{{ order.total_price | money }}</td>
+                <td class="account-table-cell t-font ta-c table-button"><div class="hulk_reorder_button button button-primary" onclick="Hulkappreorder({{ order.id }})"></div></td>
+              </tr>
+            {% endfor %}
+          {% else %}
+            <tr>
+              <td colspan="6" class="account-table-cell t-font ta-c">You have no orders</td>
+            </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="account-subscriptions display-none">
+    <div class="account-subscriptions-header">
+      <div class="detail-menu">
+        <span class="subscriptions-hide cursor-pointer">My Account</span><span> > </span><span class="cursor-pointer">Subscriptions</span>
+        <p>Subscriptions</p>
+      </div>
+    </div>
+    <div class="subscriptions">
+      <div class="subscriptions-table">
+        <table class="account-table account-table-cell">
+          <thead>
+            <tr>
+              <th class="account-table-cell t-font ta-l">Order #</th>
+              <th class="account-table-cell t-font ta-l">Date</th>
+              <th class="account-table-cell t-font ta-c">Payment</th>
+              <th class="account-table-cell t-font ta-l">Status</th>
+              <th class="account-table-cell t-font ta-l">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="account-table-cell t-font ta-l">#V2-34050</td>
+              <td class="account-table-cell t-font ta-l">3/10/2021</td>
+              <td class="account-table-cell t-font ta-c">Paid</td>
+              <td class="account-table-cell t-font ta-l">Fullfilled</td>
+              <td class="account-table-cell t-font ta-l">$ 60.20</td>
+            </tr>
+            <tr>
+              <td class="account-table-cell t-font ta-l">#V2-34050</td>
+              <td class="account-table-cell t-font ta-l">3/10/2021</td>
+              <td class="account-table-cell t-font ta-c">Paid</td>
+              <td class="account-table-cell t-font ta-l">Fullfilled</td>
+              <td class="account-table-cell t-font ta-l">$ 60.20</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="subscriptions-address">
+        <div class="default-address">
+          <h6 class="address-title">DEFAULT ADDRESS:</h6>
+          <p class="address-detail">{{ customer.addresses[0].first_name }} {{ customer.addresses[0].last_name }}</p>
+          {% if customer.addresses[0].street != blank %}
+            <p class="address-detail">{{ customer.addresses[0].street }}</p>
+          {% endif %}
+          {% if customer.addresses[0].city != blank or customer.addresses[0].province_code != blank %}
+            <p class="address-detail">
+              {{ customer.addresses[0].city }}{% if customer.addresses[0].province_code %}, {{ customer.addresses[0].province_code }}{% endif %}
+            </p>
+          {% endif %}
+          {% if customer.addresses[0].country != blank or customer.addresses[0].zip != blank %}
+            <p class="address-detail">{{ customer.addresses[0].country }} {{ customer.addresses[0].zip }}</p>
+          {% endif %}
+          {% if customer.addresses[0].phone != blank %}
+            <p class="address-detail">{{ customer.addresses[0].phone }}</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="account-invoices display-none">
+    <div class="account-invoices-header">
+      <div class="detail-menu">
+        <span class="invoices-hide cursor-pointer">My Account</span><span> > </span><span class="cursor-pointer">Invoices</span>
+        <p>invoices</p>
+      </div>
+    </div>
+    <div class="invoices">
+      <table class="account-table account-table-cell">
+        <thead>
+          <tr>
+            <th class="account-table-cell t-font ta-l">Order</th>
+            <th class="account-table-cell t-font ta-l">Date</th>
+            <th class="account-table-cell t-font ta-l">Status</th>
+            <th class="account-table-cell t-font ta-c">Payment</th>
+            <th class="account-table-cell t-font ta-c">Total</th>
+            <th class="account-table-cell t-font ta-c">Invoice</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if customer.orders.size > 0 %}
+            {% for order in customer.orders %}
+              <tr>
+                <td class="account-table-cell t-font ta-l td-none order-link-text">
+                  {%- capture order_link -%}
+                    {{ order.name }}
+                  {%- endcapture -%}
+
+                  {{ order_link | strip_newlines | link_to: order.customer_url, order.name }}
+                </td>
+                <td class="account-table-cell t-font ta-l">{{ order.created_at | date: "%m/%d/%Y" }}</td>
+                <td class="account-table-cell t-font ta-l">{{ order.fulfillment_status_label }}</td>
+                <td class="account-table-cell t-font ta-c">{{ order.financial_status_label }}</td>
+                <td class="account-table-cell t-font ta-c">{{ order.total_price | money }}</td>
+                <td class="account-table-cell t-font ta-c td-none order-link-text"><a target='_blank' href='https://c6.ca/apps/download-pdf/orders/9a88e3e3c54db84f578f/{{ order.id | times: 4676 }}/{{ order.name | handleize }}.pdf'>Download Invoice</a></td>
+              </tr>
+            {% endfor %}
+          {% else %}
+            <tr>
+              <td colspan="6" class="account-table-cell t-font ta-c">You have no invoices</td>
+            </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  {% render 'customer-account-team' %}
+ 
+  <div class="become-terms-customer">
+    <div class="top-arch">
+      <img id="toggle-img" class="top-arch-icon toggle-become-terms cursor-pointer" src="{{ 'Icons-07.png' | asset_url }}" alt="heart icon" />
+    </div>
+    <div class="become-terms-customer-header">
+      <div class="header-content">
+        <span>Become A terms Customer With C6 Today</span>
+      </div>
+      <div class="header-toggle">
+        <span id="toggle-icon" class="toggle-become-terms" id="flip">—</span>
+      </div>
+    </div>
+    <div class="become-terms-customer-content" id="panel">
+      <p>Are you a business looking for term payments? C6 is here to help!</p>
+      <p><strong><em>How it works:</em></strong></p>
+      <p>1. Fill out Customer Credit Application online (available in the link below). Our client relations team will get in touch with you, please allow 3-5 business days.</p>
+      <p>2. When purchasing with is, please ensure you are logged in with your corporate account. Upon checkout, you will have the option to select “terms” as a payment method.</p>
+      <p>3. Enjoy purchasing now and paying later!</p>
+      <a href="javascript:;" class="button button-primary promo-block-mosaic--button">
+        <span class="button-text">credit application form</span>
+      </a>
+    </div>
+  </div>
+
+</section>
+
+<script> 
+  $(document).ready(function(){
+    $(".customer-modal-form").each(function() {
+      var formValueOrigin = $(this).val();
+      if(formValueOrigin != "") {
+        $(this).addClass("form-field-filled");
+      }
+    });
+    function topFunction() {
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    }
+    var i=0;
+    $(".toggle-become-terms").click(function(){
+      $("#panel").slideToggle("slow");
+      let symbol = $("#toggle-icon").text();
+      $("#toggle-icon").text((symbol == '—' ? '＋ ' : '—'));
+      i++
+      if(i%2 == 0) {
+        $("#toggle-img").addClass("toggle-rotate-all");
+        $("#toggle-img").removeClass("toggle-rotate-half");
+       } else {
+        $("#toggle-img").addClass("toggle-rotate-half");
+        $("#toggle-img").removeClass("toggle-rotate-all");
+       }
+    });
+    $("#details").click(function() {
+      window.location = "#details";
+      $(".customer-category").addClass("display-none");
+      $(".account-details").removeClass("display-none");
+      topFunction();
+    });
+
+    if(location.hash == "#details") {
+      $(".customer-category").addClass("display-none");
+      $(".account-details").removeClass("display-none");
+    }
+    
+    $("#orders").click(function() { 
+      window.location = "#orders";
+      $(".customer-category").addClass("display-none");
+      $(".account-orders").removeClass("display-none");
+      topFunction();
+    });
+
+    if(location.hash == "#orders") {
+      $(".customer-category").addClass("display-none");
+      $(".account-orders").removeClass("display-none");
+    }
+
+    $("#subscriptions").click(function() { 
+      window.location = "#subscriptions";
+      $(".customer-category").addClass("display-none");
+      $(".account-subscriptions").removeClass("display-none");
+      topFunction();
+    });
+
+    if(location.hash == "#subscriptions") {
+      $(".customer-category").addClass("display-none");
+      $(".account-subscriptions").removeClass("display-none");
+    }
+    
+    $("#invoices").click(function() { 
+      window.location = "#invoices";
+      $(".customer-category").addClass("display-none");
+      $(".account-invoices").removeClass("display-none");
+      topFunction();
+    });
+
+    if(location.hash == "#invoices") {
+      $(".customer-category").addClass("display-none");
+      $(".account-invoices").removeClass("display-none");
+    }
+
+    $("#teams").click(function() { 
+      window.location = "#teams";
+      $(".customer-category").addClass("display-none");
+      $(".account-teams").removeClass("display-none");
+      topFunction();
+    });
+
+    if(location.hash == "#teams") {
+      $(".customer-category").addClass("display-none");
+      $(".account-teams").removeClass("display-none");
+    }
+
+    $(".details-hide").click(function() {
+      $(".account-details").addClass("display-none");
+      $(".customer-category").removeClass("display-none");
+      window.history.back();
+    });
+    $(".orders-hide").click(function() {
+      $(".account-orders").addClass("display-none");
+      $(".customer-category").removeClass("display-none");
+      window.history.back();
+    });
+    $(".subscriptions-hide").click(function() {
+      $(".account-subscriptions").addClass("display-none");
+      $(".customer-category").removeClass("display-none");
+      window.history.back();
+    });
+    $(".invoices-hide").click(function() {
+      $(".account-invoices").addClass("display-none");
+      $(".customer-category").removeClass("display-none");
+      window.history.back();
+    });
+    $(".teams-hide").click(function() {
+      $(".account-teams").addClass("display-none");
+      $(".customer-category").removeClass("display-none");
+      window.history.back();
+    });
+    $(".customer-modal-background").click(function() {
+      window.history.back();
+    });
+    $(".customer-modal-close").click(function() {
+      window.history.back();
+    });
+    $("#edit-name").click(function() {
+      window.history && window.history.pushState && window.history.pushState({'page': 'quickview'}, 'quickviewed');
+      $("#customer-edit-phone").addClass("modal-display-none");
+      $(".customer-password-reset").addClass("modal-display-none");
+      $(".customer-email").addClass("modal-display-none");
+      $(".customer-address").removeClass("modal-display-none");
+      $(".customer-modal").removeClass("modal-display-none");
+      $(".customer-modal-title").text("Edit Name");
+      $("#customer-edit-name").removeClass("modal-display-none");
+    });
+    $(".edit-phone-number").on("click", function() {
+      window.history && window.history.pushState && window.history.pushState({'page': 'quickview'}, 'quickviewed');
+      $("#customer-edit-name").addClass("modal-display-none");
+      $(".customer-password-reset").addClass("modal-display-none");
+      $(".customer-email").addClass("modal-display-none");
+      var phone_number = $("#customer_addr__phone").val();
+      if(phone_number != "") {
+        $("#phone-number").text("Edit");
+      } else {
+        $(".customer-modal-title").text("Add Phone Number");
+      }
+      $(".customer-address").removeClass("modal-display-none");
+      $(".customer-modal").removeClass("modal-display-none");
+      $("#customer-edit-phone").removeClass("modal-display-none");
+    });
+    $("#edit-email").click(function() {
+      window.history && window.history.pushState && window.history.pushState({'page': 'quickview'}, 'quickviewed');
+      $("#customer-edit-name").addClass("modal-display-none");
+      $("#customer-edit-phone").addClass("modal-display-none");
+      $(".customer-address").addClass("modal-display-none");
+      $(".customer-password-reset").addClass("modal-display-none");
+      $(".customer-modal").removeClass("modal-display-none");
+      $(".customer-email").removeClass("modal-display-none");
+      $(".customer-modal-title").text("Send a request to the client relations team to change my email address");
+    });
+    $("#edit-password").click(function() {
+      window.history && window.history.pushState && window.history.pushState({'page': 'quickview'}, 'quickviewed');
+      $("#customer-edit-name").addClass("modal-display-none");
+      $("#customer-edit-phone").addClass("modal-display-none");
+      $(".customer-address").addClass("modal-display-none");
+      $(".customer-password-reset").addClass("modal-display-none");
+      $(".customer-email").addClass("modal-display-none");
+      $(".customer-password-reset").removeClass("modal-display-none");
+      $(".customer-modal").removeClass("modal-display-none");
+      $(".customer-modal-title").text("{{ 'customers.recover_password.title' | t }}");
+    });
+    $("#submit-{{ customer.addresses[0].id }}").click(function() {
+      var first_name = $("#customer_addr__firstname").val();
+      var last_name = $("#customer_addr__lastname").val();
+      var phone_number = $("#customer_addr__phone").val();
+      $.ajax({
+        url: "/account/addresses/{{ customer.addresses[0].id }}",
+        dataType: "json",
+        type: "post",
+        data: {
+          form_type: "customer_address",
+          utf8: "✓",
+          "address[first_name]": first_name,
+          "address[last_name]": last_name,
+          "address[phone]": phone_number,
+          _method: "put"
+        },
+      });
+      $(".customer-modal").addClass("modal-display-none");
+      $("#customer-edit-name").addClass("modal-display-none");
+      $("#customer-edit-phone").addClass("modal-display-none");
+      $(".customer-address").addClass("modal-display-none");
+      $(".customer-name").text(first_name + " " + last_name);
+      if(phone_number != "") {
+        $("#phone-number").text("Edit");
+        $("#phone-number").removeClass("add-phone");
+        $(".customer-modal-title").text("Edit Phone Number");
+        $(".customer-phone").text(addDashes(phone_number));
+      } else {
+        $("#phone-number").text("Add Phone Number");
+        $("#phone-number").addClass("add-phone");
+        $(".customer-modal-title").text("Add Phone Number");
+        $(".customer-phone").text(phone_number);
+      }
+    });
+    function addDashes(phone_number)
+    {
+      f_val = phone_number.replace(/\D[^\.]/g, "");
+      return phone_number = f_val.slice(0,3)+"-"+f_val.slice(3,6)+"-"+f_val.slice(6);
+    }
+    $(".customer-phone").each(function() {
+      var customer_phone = $(this).text();
+      if (customer_phone != "" && customer_phone != " ")
+        $(this).text(addDashes(customer_phone));
+    });
+    $(window).on('popstate', function(event) {
+      $(".customer-modal").addClass("modal-display-none");
+    });
+    window.onpopstate = history.onpushstate = function(e) 
+    {
+      var currentState = history.state;
+      if(currentState != null)
+        $(".customer-modal").removeClass("modal-display-none");
+    };
+      
+
+    window.onhashchange = function() {
+      var hash = location.hash;
+      console.log(hash);
+      if(!hash) {
+        $(".account-orders").addClass("display-none");
+        $(".account-subscriptions").addClass("display-none");
+        $(".account-invoices").addClass("display-none");
+        $(".account-teams").addClass("display-none");
+        $(".account-details").addClass("display-none");
+        $(".customer-category").removeClass("display-none");
+      } else if (hash == "#details") {
+        $(".customer-category").addClass("display-none");
+        $(".account-details").removeClass("display-none");
+      } else if (hash == "#orders") {
+        $(".customer-category").addClass("display-none");
+        $(".account-orders").removeClass("display-none");
+      } else if (hash == "#invoices") {
+        $(".customer-category").addClass("display-none");
+        $(".account-invoices").removeClass("display-none");
+      } else if (hash == "#teams") {
+        $(".customer-category").addClass("display-none");
+        $(".account-teams").removeClass("display-none");
+      }
+    }
+    $(".customer-modal-form").blur(function() {
+      var formValue = $(this).val();
+      if(formValue != "") {
+        $(this).addClass("form-field-filled");
+      } else {
+        $(this).removeClass("form-field-filled");
+      }
+    });
+  });
+  
+</script>
+
+{% render 'hulkapps-orders-json' %}

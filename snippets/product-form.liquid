@@ -1,0 +1,464 @@
+{% comment %}
+  Product form
+
+  @param product
+
+  @param selected_variant
+{% endcomment %}
+
+{% if is_product_modal and settings.quickshop_show_dcb %}
+  {% assign quickshop_smart_buttons = true %}
+{% endif %}
+
+{% if is_product_modal == false and section.settings.show_dcb %}
+  {% assign product_smart_buttons = true %}
+{% endif %}
+
+{% if selected_variant.available == false %}
+  {% assign quickshop_smart_buttons = false %}
+  {% assign product_smart_buttons = false %}
+{% endif %}
+
+{% assign product_form_class = '' %}
+{% if product_smart_buttons or quickshop_smart_buttons %}
+  {% assign product_form_class = 'smart-payment-enabled' %}
+{% endif %}
+
+
+{% for tag in product.tags %}
+  {% if tag contains "maxQty_" %}
+	{% assign prod_max_limit = tag | remove: "maxQty_" %}
+  {% endif %}
+{% endfor %}
+
+{% form 'product', product, data-productid: product.id, class: product_form_class, data-product-form: '' %}
+
+  {% if product.has_only_default_variant %}
+    <input
+      name="id" data-productid="{{ product.id }}"
+      value="{{ product.variants[0].id }}"
+      type="hidden">
+  {% else %}
+    {%
+      include 'product-options',
+      product: product,
+      selected_variant: selected_variant,
+      style: settings.product_option_style
+    %}
+  {% endif %}
+
+	{% comment %}
+  <div class="product-form--atc">
+    <div class="product-form--atc-qty form-fields--qty" data-quantity-wrapper>
+      
+      <div class="form-field form-field--qty-select">        
+        <div class="form-field-select-wrapper">
+          <label
+            for="product-quantity-select"
+            class="form-field-title u-h5"
+          >
+            {{ 'general.general.quantity' | t }}
+          </label>
+          
+          <select
+            id="product-quantity-select"
+            class="form-field-input form-field-select"
+            aria-label="{{ 'general.general.quantity' | t }}"
+            data-quantity-select
+          >
+            {% for i in (1..9) %}
+              <option {% if i == 1 %}selected {% endif %}value="{{ i }}">
+                {{ i }}
+              </option>
+            {% endfor %}
+            <option value="10+">
+              10+
+            </option>
+          </select>          
+          
+          {% include 'icon-library', id: 'icon-chevron-down-small' %}
+        </div>
+      </div>
+      <div class="form-field form-field--qty-input hidden">
+        <input
+          id="product-quantity-select"
+          class="form-field-input form-field-number form-field-filled"
+          value="1"
+          name="quantity"
+          type="text"
+          pattern="\d*"
+          aria-label="{{ 'general.general.quantity' | t }}"
+          data-quantity-input
+        >
+        <label
+          for="product-quantity-select"
+          class="form-field-title"
+        >
+          {{ 'general.general.quantity' | t }}
+        </label>
+      </div>
+
+    </div>
+  </div>
+	{% endcomment %}
+
+
+  <div class="product-form--atc">
+    <div class="product-form--atc-qty form-fields--qty" data-quantity-wrapper>
+      
+      <div class="cs-form-group">
+        <label
+               for="product-quantity-select"
+               class="form-field-title u-h5 cs-form-label"
+               >
+          {{ 'general.general.quantity' | t }}
+        </label>
+        
+        <input type="number"
+               id="product-quantity-select"
+               name="quantity"
+               class="form-field-input form-field-select cs-form-input"
+               aria-label="{{ 'general.general.quantity' | t }}"
+               data-quantity-select
+               min="1"
+               value="1"
+               {% if prod_max_limit != blank %}max="{{prod_max_limit}}"{%endif%}
+               />
+      </div>
+      
+    </div>
+  </div>
+
+  {% if prod_max_limit != blank %}
+  <p class="prodMaxQty" id="prodMaxMessage">
+    Only a <strong class="prodMaxQty__em"> maximim quantity of <span id="prodMaxQty__value">{{prod_max_limit}}</span></strong> is allowed for this product.
+  </p>
+  {% endif %}
+
+  <p class="prodMaxQty is-hidden" id="varMaxMessage">
+    Only a <strong class="prodMaxQty__em"> maximim quantity of <span id="varMaxQty__value"></span></strong> is allowed for this product.
+  </p>
+
+
+  <button
+    class="product-form--atc-button {% unless selected_variant.available %}disabled{% endunless %} button button-primary"
+    type="submit"
+    {% unless selected_variant.available %}disabled{% endunless %}
+    data-product-atc>
+    <span class="atc-button--text">
+      
+      {% if template contains 'pre-order' %}
+        Pre-Order
+      {% else %}
+      {% if selected_variant.available %}
+        {{ 'product.buttons.add_to_cart' | t }}
+      {% else %}
+        {{ 'product.buttons.sold_out' | t }}
+      {% endif %}
+      {% endif %}
+    </span>
+    <span class="atc-button--icon">
+      {% include 'icon-library', id: 'icon-spinner' %}
+    </span>
+  </button>
+
+  {% if product_smart_buttons or quickshop_smart_buttons %}
+    {{ form | payment_button }}
+  {% endif %}
+
+  {% if settings.product_show_stock_level != 'hidden'%}
+     {%
+        include 'product-stock-level',
+        container: 'product_page',
+        variant: selected_variant,
+        inventory_quantity: selected_variant.inventory_quantity
+      %}
+  {% endif %}
+{% endform %}
+
+
+<div class="pop-up-modal" id="sub-info-modal" role="dialog" aria-labelledby=">{{ pages.subscription-service.title }}" aria-describedby="Learn more about subscription">
+  <div tabindex="0" class="pop-up-content">
+    <span tabindex="0" class="close-button">&times;</span>
+    <h4 class="pop-up-modal__title">{{ pages.subscription-service.title }}</h4>
+    <div class="pop-up-modal__body">{{ pages.subscription-service.content }}</div>
+  </div>
+</div>
+
+{% include 'popup-shipping-returns' %}
+
+<style>
+  .sealsubs-container {
+    display: grid !important;
+    grid-gap: 12px;
+  }
+  
+  .sls-option-container {
+    position: relative;
+    background-color: hsl(2 78% 50% / 0.1);
+    border-radius: 12px !important;
+    box-shadow: 0px 0px 0px 2px rgb(227 35 28 / .2);
+    transition: all 250ms ease;
+  }
+  
+  .sls-option-container::before {
+    content: "";
+    position: absolute;
+    top: 12px;
+    left: 10px;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    background: transparent;
+    border: 4px solid hsl(3deg 77% 95%);
+    box-shadow: 0 0 0 2px #e3231c;
+    opacity: .5;
+    transition: all 250ms ease;
+  }
+  
+  .sls-option-container.sls-active {
+    background-color: hsl(2 78% 50% / 0);
+    box-shadow: 0px 0px 0px 2px rgb(227 35 28 / 1);
+  }
+  
+  .sls-option-container.sls-active::before {
+    background: #e3231c;
+    border: 4px solid hsl(0deg 0% 100%);
+    box-shadow: 0 0 0 2px #e3231c;
+    opacity: 1;
+  }
+  
+  .sealsubs-container input[type="radio"] {
+    visibility: hidden;
+  }
+  
+  .seal-row {
+  	display: flex !important;
+  }
+  
+  .sls-label-container.seal-col {
+    display: grid;
+    padding-left: 12px;
+    align-items: center;
+  }
+  
+  .sls-select-container {
+    width: 100%;
+  }
+  
+  .sls-select, .sealsubs-container .sls-select-container select.sls-select {
+    width: 100%;
+    border: 0 !important;
+    border-radius: 8px !important;
+    margin: 8px 0px !important;
+    background-color: hsl(2 78% 50% / .2) !important;
+  }
+  
+  .trigger-pop-up {
+    margin: 0px 0px 16px;
+    border: 2px dashed #e3231c;
+    padding: 5px;
+    border-radius: 8px;
+    text-align: center;
+    line-height: normal;
+    color: #e3231c;
+    font-weight: 600;
+  }
+  
+  .trigger-pop-up:hover {
+    text-decoration: none;
+  }
+
+  
+  .prodMaxQty {
+    display: block;
+  }
+  
+  .prodMaxQty.is-hidden {
+    display: none;
+  }
+  
+  .prodMaxQty__em {
+    color: #e3231c;
+  }
+  
+/*    */
+  .cs-form-group {
+    display: flex;
+    align-items: center;
+  }
+  
+  .cs-form-label {
+    position: relative;
+    top: auto !important;
+    left: auto;
+    margin-right: 16px;
+  }
+  
+  .cs-form-input {
+    width: 100%;
+    border-radius: 50px;
+    padding: 15px 20px;
+    border: 0;
+    background: #f4f4f4;
+  }
+  
+  
+  .sr-info-modal .pop-up-content {
+    max-height: 85vh;
+    overflow-y: scroll;
+  }
+  
+  .sr-info-modal img {
+    display: block;
+    max-width: 100%;
+  }
+  
+  .sr-trigger {
+    position: relative;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    padding: 0;
+    width: 100%;
+    
+    justify-content: center;
+    background: transparent;
+    border: 0;
+    color: #e3231c;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  
+  .sr-trigger::after {
+    content: '';
+    width: 30px;
+    height: 30px;
+    background: url(//cdn.shopify.com/s/files/1/0504/7405/7897/t/53/assets/delivery-truck.svg?v=6961720360555797170);
+    background-size: 
+    display: block;
+    margin-left: 8px;
+  }
+  
+  .sr-trigger::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height:2px;
+    border-bottom: 2px dashed #333;
+  }
+  
+  .pop-up-modal__body h5 {
+    font-weight: 600 !important;
+    margin-bottom: 15px;
+  }
+  
+  .pop-up-modal__body a {
+    color: #e3231c;
+  }
+  
+</style>
+
+<script>
+  (function () {
+    
+    const subModalTrigger = function(subEle) {
+      const modalBtn = document.createElement("button");
+      modalBtn.className = "trigger-pop-up";
+      modalBtn.setAttribute("type", "button");
+      modalBtn.textContent += "Learn more about Subscriptions";
+      
+      subEle.parentNode.insertBefore(modalBtn, subEle.nextSibling)
+    }
+    
+    const subModalContent = function() {
+      const modal = document.getElementById("sub-info-modal");
+      const trigger = document.querySelector(".trigger-pop-up");
+      const closeButton = document.querySelector(".close-button");
+      
+      // Move modal to end of body
+      document.body.appendChild(modal);
+
+      function toggleModal() {
+        modal.classList.toggle("show-pop-up");
+      }
+
+      function windowOnClick(event) {
+        if (event.target === modal) {
+          toggleModal();
+        }
+        setTimeout(function(){
+          $('.show-pop-up .pop-up-content').focus();
+        }, 200);
+      }
+
+      $(".pop-up-content").keyup(function(e) {
+        if (e.keyCode === 13 || e.keyCode === 27 ) {
+          toggleModal();
+        }
+      });
+
+      trigger.addEventListener("click", toggleModal);
+      closeButton.addEventListener("click", toggleModal);
+      window.addEventListener("click", windowOnClick);
+    }
+    
+    
+    const custVarLimit = function() {
+      var currentSKU = $("#product-sku span").text().replace("SKU ", "");
+      var varMaxValue = $("#varMaxQty__value");
+      
+      var prodOpts = $(".option-value-name");
+      
+      var varMaxValInput = $("#product-quantity-select");
+            
+      const checks = function() {
+        var currentSKU = $("#product-sku span").text().replace("SKU ", "");
+        
+        if(currentSKU === "9651-01") {
+          var varLimit = 24;
+          varMaxValue.text(varLimit);
+          varMaxValInput.attr('max', varLimit);
+        } else if(currentSKU === "9651-24") {
+          var varLimit = 1;
+          varMaxValue.text(varLimit);
+          varMaxValInput.attr('max', varLimit);
+        } else {
+          console.log("nilch");
+        }
+        
+        console.log("clicked");
+      }
+      
+      prodOpts.on('click', function(){
+        var currentSKU = $("#product-sku span").text().replace("SKU ", "");
+        setTimeout(checks, 250);
+      })
+      
+      checks();
+    }
+
+    
+    window.onload = (e) => {
+      const subEle = document.querySelector(".sealsubs-target-element");
+      
+      if(subEle != null) {
+        subModalTrigger(subEle);
+        subModalContent();
+      }
+      
+      //     Custom variant limits for 9651-24 & 9651-01 SKUs
+      var varSKU = $("#product-sku span").text().replace("SKU ", "");
+      var varMaxMessage = $("#varMaxMessage");
+
+      if (varSKU === "9651-01" || varSKU === "9651-24") {
+        varMaxMessage.removeClass("is-hidden");
+        custVarLimit();
+      }
+      
+    }
+    
+  })();
+</script>

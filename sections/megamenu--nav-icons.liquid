@@ -1,0 +1,113 @@
+{% if section.settings.nav_icons_enabled %}
+<script>
+  var menu_nav_icons = (function() {
+    var icons = [];
+    {% for block in section.blocks %}
+    var icon = {
+      title: '{{ block.settings.title }}',
+      title_handle: '{{ block.settings.title | handle }}',
+      icon_img: '{{ block.settings.icon_img | img_url: 'x2048' }}'
+    };
+    
+    icons.push(icon);
+    {% endfor %}
+    
+    return icons;
+  })();
+
+  function loadNavIcons() {
+    // remove all previous icons
+    document.querySelectorAll('.nav-icon').forEach(function(item) {
+      item.remove();
+    });
+          
+    menu_nav_icons.forEach(function(item) {
+      // add matching icons
+      var $menu_items = document.querySelectorAll('[data-menu-handle="' + item.title_handle + '"]');
+      if ($menu_items.length) {
+        $menu_items.forEach(function($menu_item) {
+          var new_html = '<div class="navmenu-link--icon"><img class="nav-icon" src="' + item.icon_img + '" />' + $menu_item.innerHTML + '</div>';
+          $menu_item.innerHTML = new_html;
+        });
+      }
+    });
+  }
+  
+  document.addEventListener('shopify:section:load', function (event) {
+    loadNavIcons();
+  });  
+  
+  document.addEventListener('DOMContentLoaded', function (event) {
+    loadNavIcons();
+  });  
+</script>
+
+<style>
+.navmenu-link--icon {
+  display: flex;
+  align-items: center;
+}  
+  
+.navmenu-link--icon .nav-icon {
+  max-width: {{ section.settings.icon_size }}px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  padding: 10px;  
+}
+  
+.navmenu-meganav.navmenu-meganav--desktop {
+  max-height: 90vh;  
+  overflow: scroll;
+}  
+</style>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Megamenu Nav Icons",
+    "settings": [
+      {
+        "type": "checkbox",
+        "label": "Show Nav Icons?",
+		"id": "nav_icons_enabled",
+		"default": true
+	  },
+      {
+        "type": "range",
+        "label": "Icon Size",
+        "id": "icon_size",
+		"min": 50,
+		"max": 200,
+		"step": 5,
+		"unit": "px",
+		"default": 100
+      }
+	],
+	"blocks": [
+	  {
+		"name": "Icon",
+		"type": "icon",
+		"settings": [
+		  {
+			"type": "text",
+			"label": "Menu Title",
+			"id": "title",
+			"info": "Title must match the menu title exactly"
+		  },
+		  {
+			"type": "image_picker",
+			"label": "Icon",
+			"id": "icon_img"
+		  }
+		]
+	  }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

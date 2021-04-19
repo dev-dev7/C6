@@ -1,0 +1,70 @@
+{% style %}
+  #shopify-section-{{block.id}} {
+    background-color: {{ block.settings.background_color }};
+  }
+
+  #shopify-section-{{block.id}}.alt-img-with-text--container {
+    padding-top: {{ block.settings.section_spacing_mobile }}px;
+    padding-bottom: {{ block.settings.section_spacing_mobile }}px;
+  }
+
+  @media screen and (min-width: 720px) {
+    #shopify-section-{{block.id}}.alt-img-with-text--container {
+      padding-top: {{ block.settings.section_spacing_desktop }}px;
+      padding-bottom: {{ block.settings.section_spacing_desktop }}px;
+    }
+    .alt-img-with-text--container:not(.no-img)+style+.alt-img-with-text--container{
+      padding-top: 0!important;
+    }
+  }
+{% endstyle %}
+
+<section class="alt-img-with-text--container no-img section--text-cta" id="shopify-section-{{block.id}}">
+    <div
+      {{ block.shopify_attributes }}
+      id="block-{{- block.id -}}"
+      class="
+        alt-img-with-text--content"
+    >
+
+      {% comment %}
+        Text content
+      {% endcomment %}
+
+      <div class=" alt-img-with-text--text">
+        {% if block.settings.heading--1 != blank or block.settings.text_content--1 != blank %}
+          <div class="text-col">
+            {% if block.settings.icon != blank %}
+              {{ block.settings.icon | img_tag }}
+            {% endif %}
+
+
+            {% if block.settings.heading--1 != blank %}
+              <h2 class="heading{{ block.settings.heading--1--alignment }}">
+                {{ block.settings.heading--1 }}
+              </h2>
+            {% endif %}
+
+            {% if block.settings.text_content--1 != blank %}
+              <div class="text-content {{ block.settings.text_content--1--alignment }}">
+                {{ block.settings.text_content--1 }}
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {% if block.settings.button_text--cta != blank %}
+          {% if block.settings.button_link--cta %}
+            <div class="cta-button">
+              <a class="button button--primary" href="{{ block.settings.button_link--cta }}">
+                {{- block.settings.button_text--cta | escape -}}
+              </a>
+            </div>
+          {% endif %}
+        {% endif %}
+
+      </div>
+    </div>
+</section>
+
+

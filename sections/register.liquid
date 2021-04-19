@@ -1,0 +1,160 @@
+{% schema %}
+
+{
+  "name": "Registration content",
+  "settings": [
+    {
+      "type": "header",
+      "content": "top text"
+    }, {
+      "type": "text",
+      "id": "top_1",
+      "label": "main title left",
+      "default": "Create an account"
+    }, {
+      "type": "richtext",
+      "id": "top_2",
+      "label": "main title content right",
+      "default": "<p>Need help?</p>"
+    }, {
+      "type": "header",
+      "content": "Customers"
+    }, {
+      "type": "text",
+      "id": "header_1",
+      "label": "header",
+      "default": "New Customer"
+    }, {
+      "type": "richtext",
+      "id": "subheader_1",
+      "label": "sub header",
+      "default": "<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>"
+    }, {
+      "type": "richtext",
+      "id": "checks_1",
+      "label": "checks",
+      "default": "<p>Check 1.</p><p>Check 2.</p><p>Check 1.</p><p>Check 2.</p>"
+    }, {
+      "type": "header",
+      "content": "corporate"
+    }, {
+      "type": "text",
+      "id": "header_2",
+      "label": "header",
+      "default": "Corporate Customer"
+    }, {
+      "type": "richtext",
+      "id": "subheader_2",
+      "label": "sub header",
+      "default": "<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>"
+    }, {
+      "type": "richtext",
+      "id": "checks_2",
+      "label": "checks",
+      "default": "<p>Check 1.</p><p>Check 2.</p><p>Check 1.</p><p>Check 2.</p>"
+    }
+  ]
+}
+
+{% endschema %}
+
+{% stylesheet %}
+
+
+
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+
+<section class="site-page-signup" data-template-page>
+
+  <header class="account-page-masthead">
+    <h1 class="account-page-title">
+      {{ section.settings.top_1 }}
+    </h1>
+  </header>
+  <div class="signup-container">
+
+    <div class="new_form">
+      <div class="form-vertical_new">
+        <div class="icn">
+          <svg viewbox="0 0 640 512" xmlns="http://www.w3.org/2000/svg"><path d="M544 224c44.2 0 80-35.8 80-80s-35.8-80-80-80-80 35.8-80 80 35.8 80 80 80zm0-128c26.5 0 48 21.5 48 48s-21.5 48-48 48-48-21.5-48-48 21.5-48 48-48zM320 256c61.9 0 112-50.1 112-112S381.9 32 320 32 208 82.1 208 144s50.1 112 112 112zm0-192c44.1 0 80 35.9 80 80s-35.9 80-80 80-80-35.9-80-80 35.9-80 80-80zm244 192h-40c-15.2 0-29.3 4.8-41.1 12.9 9.4 6.4 17.9 13.9 25.4 22.4 4.9-2.1 10.2-3.3 15.7-3.3h40c24.2 0 44 21.5 44 48 0 8.8 7.2 16 16 16s16-7.2 16-16c0-44.1-34.1-80-76-80zM96 224c44.2 0 80-35.8 80-80s-35.8-80-80-80-80 35.8-80 80 35.8 80 80 80zm0-128c26.5 0 48 21.5 48 48s-21.5 48-48 48-48-21.5-48-48 21.5-48 48-48zm304.1 180c-33.4 0-41.7 12-80.1 12-38.4 0-46.7-12-80.1-12-36.3 0-71.6 16.2-92.3 46.9-12.4 18.4-19.6 40.5-19.6 64.3V432c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48v-44.8c0-23.8-7.2-45.9-19.6-64.3-20.7-30.7-56-46.9-92.3-46.9zM480 432c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16v-44.8c0-16.6 4.9-32.7 14.1-46.4 13.8-20.5 38.4-32.8 65.7-32.8 27.4 0 37.2 12 80.2 12s52.8-12 80.1-12c27.3 0 51.9 12.3 65.7 32.8 9.2 13.7 14.1 29.8 14.1 46.4V432zM157.1 268.9c-11.9-8.1-26-12.9-41.1-12.9H76c-41.9 0-76 35.9-76 80 0 8.8 7.2 16 16 16s16-7.2 16-16c0-26.5 19.8-48 44-48h40c5.5 0 10.8 1.2 15.7 3.3 7.5-8.5 16.1-16 25.4-22.4z"/></svg>
+        </div>
+        <h3>{{ section.settings.header_1 }}</h3>
+        <div class="register_top">
+          {{ section.settings.subheader_1 }}
+        </div>
+        <div class="checks">
+          {{ section.settings.checks_1 }}
+        </div>
+        <a class="button button-primary" href="/account/register?view=customer">Join Now</a>
+      </div>
+    </div>
+
+    <div class="new_form">
+      <div class="form-vertical_new">
+        <div class="icn">
+          <svg viewbox="0 0 640 512" xmlns="http://www.w3.org/2000/svg"><path d="M132 368H92c-6.62 0-12 5.37-12 12v40c0 6.63 5.38 12 12 12h40c6.62 0 12-5.37 12-12v-40c0-6.63-5.38-12-12-12zm0-96H92c-6.62 0-12 5.37-12 12v40c0 6.63 5.38 12 12 12h40c6.62 0 12-5.37 12-12v-40c0-6.63-5.38-12-12-12zm0-96H92c-6.62 0-12 5.37-12 12v40c0 6.63 5.38 12 12 12h40c6.62 0 12-5.37 12-12v-40c0-6.63-5.38-12-12-12zm96 192h-40c-6.62 0-12 5.37-12 12v40c0 6.63 5.38 12 12 12h40c6.62 0 12-5.37 12-12v-40c0-6.63-5.38-12-12-12zm0-96h-40c-6.62 0-12 5.37-12 12v40c0 6.63 5.38 12 12 12h40c6.62 0 12-5.37 12-12v-40c0-6.63-5.38-12-12-12zm0-96h-40c-6.62 0-12 5.37-12 12v40c0 6.63 5.38 12 12 12h40c6.62 0 12-5.37 12-12v-40c0-6.63-5.38-12-12-12zm192 96h-40c-6.62 0-12 5.37-12 12v40c0 6.63 5.38 12 12 12h40c6.62 0 12-5.37 12-12v-40c0-6.63-5.38-12-12-12zm0-96h-40c-6.62 0-12 5.37-12 12v40c0 6.63 5.38 12 12 12h40c6.62 0 12-5.37 12-12v-40c0-6.63-5.38-12-12-12zm0-96h-40c-6.62 0-12 5.37-12 12v40c0 6.63 5.38 12 12 12h40c6.62 0 12-5.37 12-12V92c0-6.63-5.38-12-12-12zm128 288h-40c-6.62 0-12 5.37-12 12v40c0 6.63 5.38 12 12 12h40c6.62 0 12-5.37 12-12v-40c0-6.63-5.38-12-12-12zm0-96h-40c-6.62 0-12 5.37-12 12v40c0 6.63 5.38 12 12 12h40c6.62 0 12-5.37 12-12v-40c0-6.63-5.38-12-12-12zm68-80H512V24c0-13.26-10.75-24-24-24H312c-13.25 0-24 10.74-24 24v72h-64V8c0-4.42-3.58-8-8-8h-16c-4.42 0-8 3.58-8 8v88h-64V8c0-4.42-3.58-8-8-8h-16c-4.42 0-8 3.58-8 8v88H24c-13.25 0-24 10.74-24 24v384c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8V128h288V32h160v192h128v280c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8V216c0-13.26-10.75-24-24-24z"/></svg>
+        </div>
+        <h3>Corporate Customer</h3>
+        <div class="register_top">
+          {{ section.settings.subheader_2 }}
+        </div>
+        <div class="checks">
+          {{ section.settings.checks_2 }}
+        </div>
+        <a class="button button-primary" href="/account/register?view=corporate">Join Now</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-contact">
+    {{ section.settings.top_2 }}
+  </div>
+
+</section>
+
+{%- comment -%}
+
+<style>
+  main#MainContent {
+    background: #f7f7f7;
+  }
+  footer.site-footer {
+    margin-top: 0;
+  }
+
+  #shopify-section-register {
+    min-height: 100vh;
+    padding-bottom: 50px;
+  }
+  main#site-main {
+    background: #f7f7f7;
+  }
+
+  .grid__item.medium-up--one-half {
+    width: calc(50% - 25px);
+    display: inline-block;
+    margin: 10px;
+    float: left;
+  }
+  .form-vertical_new a.button button-primary {
+    width: 100%;
+    text-align: center;
+  }
+
+  .grid {
+    overflow: auto;
+  }
+  @media only screen and(max-width: 749px) {
+    .grid__item.medium-up--one-half {
+      width: 100%;
+      display: block;
+      float: none;
+      margin: 0;
+      padding: 10px;
+    }
+  }
+</style>
+{%- endcomment -%}

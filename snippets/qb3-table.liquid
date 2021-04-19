@@ -1,0 +1,14 @@
+<table class="qb-table">
+  <tr>
+    <th>Minimum Quantity</th> <th>You Save</th> <th> You'll Pay</th>
+  </tr>
+  <tr>
+    <td>1</td> <td>5% per unit</td> <td>{{ product.price | times: 1 | times: 0.95 | money }} for 1</td>
+  </tr>
+  <tr>
+    <td>51</td> <td>10% per unit</td> <td>{{ product.price | times: 51 | times: 0.9 | money }} for 51</td>
+  </tr>
+  <tr>
+    <td>101</td> <td>15% per unit</td> <td>{{ product.price | times: 101 | times: 0.85 | money }} for 101</td>
+  </tr>
+</table>

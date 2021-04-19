@@ -1,0 +1,49 @@
+{% assign using_linklist = false %}
+{% assign pagination = 48 %}
+{% assign linklist = page.handle %}
+
+{% if linklists[linklist] and linklists[linklist].links.size > 0 %}
+  {% assign using_linklist = true %}
+  {% assign pagination = 48 %}
+{% endif %}
+
+{%- if section.settings.show_breadcrumbs -%}
+  {% include 'breadcrumbs' %}
+{%- endif -%}
+
+<h1 class="visually-hidden">{{ 'general.breadcrumbs.collections' | t }}</h1>
+{% paginate collections by pagination %}
+  <div class="
+    listcollections--container
+    {% unless section.settings.show_breadcrumbs %}no-breadcrumbs{% endunless %}
+  ">
+    <ul class="listcollections--inner">
+      {% if using_linklist %}
+        {% for link in linklists[linklist].links %}
+          {% assign link_handle = link.handle %}
+          {% assign collection = link.object %}
+          {% include 'collection-list-item' %}
+        {% endfor %}
+      {% endif %}
+  </ul>
+     </div>
+	{% comment %}
+  {% include 'pagination' %}
+{% endcomment %}
+{% endpaginate %}
+
+{% schema %}
+{
+  "name": "Collections",
+  "class": "listcollections--section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_breadcrumbs",
+      "label": "Show breadcrumb navigation",
+      "default": true
+    }
+  ]
+}
+
+{% endschema %}

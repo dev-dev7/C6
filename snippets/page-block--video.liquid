@@ -1,0 +1,77 @@
+{% style %}
+  #shopify-section-{{block.id}} {
+    background-color: {{ block.settings.background_color }};
+  }
+
+  #shopify-section-{{block.id}} .dynamic-video-wrapper {
+    padding-top: {{ block.settings.section_spacing_mobile }}px;
+    padding-bottom: {{ block.settings.section_spacing_mobile }}px;
+  }
+
+  @media screen and (min-width: 720px) {
+    #shopify-section-{{block.id}} .dynamic-video-wrapper {
+      padding-top: {{ block.settings.section_spacing_desktop }}px;
+      padding-bottom: {{ block.settings.section_spacing_desktop }}px;
+    }
+  }
+
+  #shopify-section-{{block.id}}  .dynamic-video-wrapper .home-section--title {
+    color: {{ block.settings.heading_color }};
+  }
+
+  #shopify-section-{{block.id}} .dynamic-video-wrapper .home-section--subheading,
+  #shopify-section-{{block.id}} .dynamic-video-wrapper .home-section--subheading a {
+    color: {{ block.settings.subheading_color }};
+  }
+{% endstyle %}
+
+<div class="shopify-section section-video" id="shopify-section-{{block.id}}">
+  <script
+    type="application/json"
+    data-section-type="dynamic-video"
+    data-section-id="{{ block.id }}"
+    data-section-data>
+    {
+      "autoplay": {{ block.settings.autoplay | json }}
+    }
+  </script>
+  <div class="dynamic-video-wrapper">
+    {% if block.settings.title != blank or block.settings.subheading != blank %}
+      <div class="home-section--title-container" >
+      {% if block.settings.title != blank %}
+        <h2 class="home-section--title">
+          {{ block.settings.title | escape }}
+        </h2>
+      {% endif %}
+      {% if block.settings.subheading != blank %}
+        <div class="home-section--subheading">
+          {{ block.settings.subheading }}
+        </div>
+      {% endif %}
+      </div>
+    {% endif %}
+
+    {% assign url = block.settings.url | default: 'https://www.youtube.com/watch?v=_9VUPq3SxOc' %}
+
+    <div class="dynamic-video">
+      {% assign overlay = null %}
+
+      {% if block.settings.show_overlay %}
+        {% assign opacity = block.settings.opacity | times: 0.01 %}
+        {% assign overlay = block.settings.background | color_modify: 'alpha', opacity %}
+      {% endif %}
+
+      {%
+        include 'video',
+        cover: block.settings.cover,
+        aspect_ratio: block.settings.aspect_ratio,
+        overlay: overlay,
+        url: url
+        %}
+        
+      {% if block.settings.show_caption %}
+        <div class="dynamic-video-caption rte">{{ block.settings.caption }}</div>
+      {% endif %}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+{% comment %}
+  @param display_format string
+         The current display format for converted currency values
+
+  @param enable (optional)
+          Enable or disable the currency converter
+
+  @param switcher_selector (optional)
+          The currency switcher(s) select element selector
+
+  @param price_selector (optional)
+          The currency element selector
+
+  @param default_currency string (optional)
+          The default currency (ISO 4217)
+{% endcomment %}
+
+{% assign enable = enable | default: true %}
+{% assign switcher_selector = switcher_selector | default: '[data-currency-converter]' %}
+{% assign price_selector = price_selector | default: '.money' %}
+{% assign default_currency = default_currency | default: shop.currency %}
+
+<script
+  type="application/json"
+  data-currency-converter-settings
+>
+  {
+    "enable": {{ enable | json }},
+    "switcher_selector": {{ switcher_selector | json }},
+    "price_selector": {{ price_selector | json }},
+    "shop_currency": {{ shop.currency | json }},
+    "default_currency": {{ default_currency | default: shop.currency | json }},
+    "display_format": {{ display_format | json }},
+    "money_format": {{ shop[display_format] | strip_html | json }},
+    "money_format_no_currency": {{ shop.money_format | strip_html | json }},
+    "money_format_currency": {{ shop.money_with_currency_format | strip_html | json }}
+  }
+</script>

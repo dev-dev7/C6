@@ -1,0 +1,419 @@
+<div class="page-content-contact" style="padding: 50px 20px; background: #fff;">
+  <div
+    {{ block.shopify_attributes }}
+    id="block-{{- block.id -}}"
+    class="
+      alt-img-with-text--content" style="flex-direction: column; max-width: 1000px; margin: 0 auto;"
+      data-template-contact
+  >
+
+    {% if block.settings.title != blank or block.settings.subtitle != blank %}
+      <div class="text-col" style="margin: 0 0 30px;">
+        {% if block.settings.title != blank %}
+          <h3 class="heading h2" style="text-align: center; margin-bottom: 0;">
+            {{ block.settings.title }}
+          </h3>
+        {% endif %}
+
+        {% if block.settings.subtitle != blank %}
+          <div class="text-content">
+            {{ block.settings.subtitle }}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% form 'contact' %}
+    {% assign has_message = false %}
+
+    {% if form.errors != blank %}
+      {% assign has_message = true %}
+      {% assign message_type = 'error' %}
+    {% endif %}
+
+    {% if form.posted_successfully? %}
+      {% assign has_message = true %}
+      {% assign message_type = 'success' %}
+    {% endif %}
+
+    {% if has_message %}
+      <div class="contact-message message--{{ message_type }}">
+        {% case message_type %}
+          {% when 'success' %}
+            <p>
+              {{ 'contact.form.post_success' | t }}
+            </p>
+          {% when 'error' %}
+            {{ form.errors | default_errors }}
+        {% endcase %}
+      </div>
+    {% endif %}
+
+    <div class="form-fields-columns">
+      <div class="form-field form-field--half">
+        {% assign value = '' %}
+        {%- if form.name -%}
+          {% assign value = form.name %}
+        {%- elsif customer -%}
+          {% assign value = customer.name %}
+        {%- endif -%}
+
+        <input
+          class="form-field-input form-field-text {% if form.errors contains 'name' %}form-field-error{% endif %}"
+          id="contact_name"
+          name="contact[name]"
+          type="text"
+          value="{{ value }}">
+
+        <label class="form-field-title" for="contact_name">
+          {{ 'contact.form.name' | t }}
+        </label>
+      </div>
+
+      <div class="form-field form-field--half">
+        {% assign value = '' %}
+        {%- if form.email -%}
+          {% assign value = form.email %}
+        {%- elsif customer -%}
+          {% assign value = customer.email %}
+        {%- endif -%}
+        <input
+          class="form-field-input form-field-text {% if form.errors contains 'email' %}form-field-error{% endif %}"
+          id="contact_email"
+          name="contact[email]"
+          type="text"
+          value="{{ value }}"
+          autocorrect="off"
+          autocapitalize="off">
+
+        <label class="form-field-title" for="contact_email">
+          {{ 'contact.form.email' | t }}
+        </label>
+      </div>
+    </div>
+
+
+    <div class="form-field">
+      {% assign value = '' %}
+      {%- if form.phone -%}
+        {% assign value = form.phone %}
+      {%- elsif customer -%}
+        {% assign value = customer.phone %}
+      {%- endif -%}
+
+      <input
+        class="form-field-input form-field-text {% if form.errors contains 'phone' %}form-field-error{% endif %}"
+        id="contact_phone"
+        name="contact[phone]"
+        type="tel"
+        value="{{ value }}">
+
+      <label class="form-field-title" for="contact_phone">
+        {{ 'contact.form.phone' | t }}
+      </label>
+    </div>
+
+
+    {% comment %} Business Name {% endcomment %}
+    <div class="form-field">
+      {% assign value = '' %}
+      {%- if form.business-name -%}
+        {% assign value = form.business-name %}
+      {%- elsif customer -%}
+        {% assign value = customer.business-name %}
+      {%- endif -%}
+
+      <input
+        class="form-field-input form-field-text {% if form.errors contains 'business-name' %}form-field-error{% endif %}"
+        id="contact_business-name"
+        name="contact[business-name]"
+        type="text"
+        value="{{ value }}">
+
+      <label class="form-field-title" for="contact_business-name">
+        {{ 'contact.form.business-name' | t }}
+      </label>
+    </div>
+
+
+    {% comment %} Sales Channel {% endcomment %}
+    <div class="form-field">
+      {% assign value = '' %}
+      {%- if form.sales-channel -%}
+        {% assign value = form.sales-channel %}
+      {%- elsif customer -%}
+        {% assign value = customer.sales-channel %}
+      {%- endif -%}
+
+      <select
+        class="form-field-input form-field-text {% if form.errors contains 'sales-channel' %}form-field-error{% endif %}"
+        id="contact_sales-channel"
+        name="contact[sales-channel]"
+        type="select"
+        value="{{ value }}">
+        <option value="Restaurant">Restaurant</option>
+        <option value="Specialty Grocery">Specialty Grocery</option>
+        <option value="Cafe">Cafe</option>
+        <option value="Office">Office</option>
+        <option value="Restaurant">Restaurant</option>
+        <option value="Other">Other</option>
+      </select>
+      
+      {% comment %} <input
+        class="form-field-input form-field-text {% if form.errors contains 'sales-channel' %}form-field-error{% endif %}"
+        id="contact_sales-channel"
+        name="contact[sales-channel]"
+        type="text"
+        value="{{ value }}"> {% endcomment %}
+
+      <label class="form-field-title" for="contact_sales-channel">
+        {{ 'contact.form.sales-channel' | t }}
+      </label>
+    </div>
+
+
+    {% comment %} STREET ADDRESS {% endcomment %}
+    <div class="form-field">
+      {% assign value = '' %}
+      {%- if form.street-address -%}
+        {% assign value = form.street-address %}
+      {%- elsif customer -%}
+        {% assign value = customer.street-address %}
+      {%- endif -%}
+
+      <input
+        class="form-field-input form-field-text {% if form.errors contains 'street-address' %}form-field-error{% endif %}"
+        id="contact_street-address"
+        name="contact[street-address]"
+        type="text"
+        value="{{ value }}">
+
+      <label class="form-field-title" for="contact_street-address">
+        {{ 'contact.form.street-address' | t }}
+      </label>
+    </div>
+
+
+    {% comment %} ADDRESS LINE 2 {% endcomment %}
+    <div class="form-field">
+      {% assign value = '' %}
+      {%- if form.address-line-2 -%}
+        {% assign value = form.address-line-2 %}
+      {%- elsif customer -%}
+        {% assign value = customer.address-line-2 %}
+      {%- endif -%}
+
+      <input
+        class="form-field-input form-field-text {% if form.errors contains 'address-line-2' %}form-field-error{% endif %}"
+        id="contact_address-line-2"
+        name="contact[address-line-2]"
+        type="text"
+        value="{{ value }}">
+
+      <label class="form-field-title" for="contact_address-line-2">
+        {{ 'contact.form.address-line-2' | t }}
+      </label>
+    </div>
+
+    <div class="form-fields-columns">
+      {% comment %} CITY {% endcomment %}
+      <div class="form-field form-field--half">
+        {% assign value = '' %}
+        {%- if form.city -%}
+          {% assign value = form.city %}
+        {%- elsif customer -%}
+          {% assign value = customer.city %}
+        {%- endif -%}
+
+        <input
+          class="form-field-input form-field-text {% if form.errors contains 'city' %}form-field-error{% endif %}"
+          id="contact_city"
+          name="contact[city]"
+          type="text"
+          value="{{ value }}">
+
+        <label class="form-field-title" for="contact_city">
+          {{ 'contact.form.city' | t }}
+        </label>
+      </div>
+
+
+      {% comment %} PROVINCE/ STATE {% endcomment %}
+      <div class="form-field form-field--half">
+        {% assign value = '' %}
+        {%- if form.prov-state -%}
+          {% assign value = form.prov-state %}
+        {%- elsif customer -%}
+          {% assign value = customer.prov-state %}
+        {%- endif -%}
+
+        <input
+          class="form-field-input form-field-text {% if form.errors contains 'prov-state' %}form-field-error{% endif %}"
+          id="contact_prov-state"
+          name="contact[prov-state]"
+          type="text"
+          value="{{ value }}">
+
+        <label class="form-field-title" for="contact_prov-state">
+          {{ 'contact.form.prov-state' | t }}
+        </label>
+      </div>
+    </div>
+
+    <div class="form-fields-columns">
+      {% comment %} POSTAL CODE/ZIP CODE {% endcomment %}
+      <div class="form-field form-field--half">
+        {% assign value = '' %}
+        {%- if form.postal -%}
+          {% assign value = form.postal %}
+        {%- elsif customer -%}
+          {% assign value = customer.postal %}
+        {%- endif -%}
+
+        <input
+          class="form-field-input form-field-text {% if form.errors contains 'postal' %}form-field-error{% endif %}"
+          id="contact_postal"
+          name="contact[postal]"
+          type="text"
+          value="{{ value }}">
+
+        <label class="form-field-title" for="contact_postal">
+          {{ 'contact.form.postal' | t }}
+        </label>
+      </div>
+
+
+      {% comment %} COUNTRY {% endcomment %}
+      <div class="form-field form-field--half">
+        {% assign value = '' %}
+        {%- if form.country -%}
+          {% assign value = form.country %}
+        {%- elsif customer -%}
+          {% assign value = customer.country %}
+        {%- endif -%}
+
+        <input
+          class="form-field-input form-field-text {% if form.errors contains 'country' %}form-field-error{% endif %}"
+          id="contact_country"
+          name="contact[country]"
+          type="text"
+          value="{{ value }}">
+
+        <label class="form-field-title" for="contact_country">
+          {{ 'contact.form.country' | t }}
+        </label>
+      </div>
+    </div>
+
+
+    {% comment %} ESTIMATED WEEKLY VOLUME (whole beans in lbs) {% endcomment %}
+    <div class="form-field">
+      {% assign value = '' %}
+      {%- if form.est-volume -%}
+        {% assign value = form.est-volume %}
+      {%- elsif customer -%}
+        {% assign value = customer.est-volume %}
+      {%- endif -%}
+
+      <input
+        class="form-field-input form-field-text {% if form.errors contains 'est-volume' %}form-field-error{% endif %}"
+        id="contact_est-volume"
+        name="contact[est-volume]"
+        type="text"
+        value="{{ value }}">
+
+      <label class="form-field-title" for="contact_est-volume">
+        {{ 'contact.form.est-volume' | t }}
+      </label>
+    </div>
+
+
+    {% comment %} WHAT ARE YOU LOOKING TO SERVE (Espresso, Drip, both) {% endcomment %}
+    <div class="form-field">
+      {% assign value = '' %}
+      {%- if form.looking-to-serve -%}
+        {% assign value = form.looking-to-serve %}
+      {%- elsif customer -%}
+        {% assign value = customer.looking-to-serve %}
+      {%- endif -%}
+
+      <select
+        class="form-field-input form-field-text {% if form.errors contains 'looking-to-serve' %}form-field-error{% endif %}"
+        id="contact_looking-to-serve"
+        name="contact[looking-to-serve]"
+        type="select"
+        value="{{ value }}">
+        <option value="Espresso">Espresso</option>
+        <option value="Drip">Drip</option>
+        <option value="Both">Both</option>
+      </select>
+      {% comment %} <input
+        class="form-field-input form-field-text {% if form.errors contains 'looking-to-serve' %}form-field-error{% endif %}"
+        id="contact_looking-to-serve"
+        name="contact[looking-to-serve]"
+        type="text"
+        value="{{ value }}"> {% endcomment %}
+
+      <label class="form-field-title" for="contact_looking-to-serve">
+        {{ 'contact.form.looking-to-serve' | t }}
+      </label>
+    </div>
+
+
+    {% comment %} ARE YOU LOOKING TO PURCHASE EQUIPMENT {% endcomment %}
+    <div class="form-field">
+      {% assign value = '' %}
+      {%- if form.looking-to-purchase -%}
+        {% assign value = form.looking-to-purchase %}
+      {%- elsif customer -%}
+        {% assign value = customer.looking-to-purchase %}
+      {%- endif -%}
+
+      <select
+        class="form-field-input form-field-text {% if form.errors contains 'looking-to-purchase' %}form-field-error{% endif %}"
+        id="contact_looking-to-purchase"
+        name="contact[looking-to-purchase]"
+        type="select"
+        value="{{ value }}">
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+      </select>
+      {% comment %} 
+      <input
+        class="form-field-input form-field-text {% if form.errors contains 'looking-to-purchase' %}form-field-error{% endif %}"
+        id="contact_looking-to-purchase"
+        name="contact[looking-to-purchase]"
+        type="text"
+        value="{{ value }}"> {% endcomment %}
+
+      <label class="form-field-title" for="contact_looking-to-purchase">
+        {{ 'contact.form.looking-to-purchase' | t }}
+      </label>
+    </div>
+
+
+    {% comment %} Notes {% endcomment %}
+    <div class="form-field">
+      {% assign value = '' %}
+      {%- if form.body -%}
+        {% assign value = form.body %}
+      {%- endif -%}
+      <textarea
+        class="form-field-input form-field-textarea {% if form.errors contains 'body' %}form-field-error{% endif %}"
+        id="contact_message"
+        name="contact[message]">{{ value }}</textarea>
+
+      <label class="form-field-title" for="contact_body">
+        {{ 'contact.form.notes' | t }}
+      </label>
+    </div>
+
+    <div class="form-action-row">
+      <button class="button-primary contact-form-button" type="submit">
+        {{ 'contact.form.send' | t }}
+      </button>
+    </div>
+  {% endform %}
+  </div>
+</div>
+

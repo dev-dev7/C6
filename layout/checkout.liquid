@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="{{ locale }}" dir="{{ direction }}" class="{{ checkout_html_classes }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, user-scalable=0">
+    <meta name="referrer" content="origin">
+
+    <title>{{ page_title }}</title>
+
+    {{ content_for_header }}
+
+    {{ checkout_stylesheets }}
+    {{ checkout_scripts }}
+    <style>
+      .popup-nu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,.5);
+        z-index: 3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+      }
+      
+      .popup-nu__content {
+        padding: 32px 16px;
+        background: #fff;
+        text-align: center;
+        border-radius: 4px;
+        
+        display: grid;
+        justify-items: center;
+        grid-gap: 16px;
+        width: 600px;
+        max-width: 100%;
+      }
+      
+      .popup-nu__icon {
+        display: block;
+        max-width: 150px;
+      }
+      
+      .popup-nu__title {
+        font-size: 20px;
+        margin-bottom: 8px;
+      }
+      
+      .popup-nu__discount {
+        display: flex;
+        justify-content: center;
+      }
+      
+      .popup-nu__discount-code {
+        padding: 10px 20px;
+        border: 2px dashed red;
+        font-size: 20px;
+        font-weight: 700;
+        font-style: normal;
+      }
+      
+    </style>
+  </head>
+  <body>
+    {{ skip_to_content_link }}
+    
+    {% assign isOrder = false %}
+    {% assign isDiscount = false %}
+    
+    {% for order in checkout.customer.orders %}
+    	{% assign isOrder = true %}
+    {% endfor %}
+    
+    {% for discount in checkout.discounts %}
+	    {% assign isDiscount = true %}
+    {% endfor %}
+    
+    {% if checkout.customer.email  %}
+      {% unless isOrder  %}
+        {% unless isDiscount %}
+          <div class="popup-nu">
+            <div class="popup-nu__content">
+              <img class="popup-nu__icon" src="{{ 'icon-gift.svg' | asset_url }}" />
+              <div class="popup-nu__info">
+	              <h3 class="popup-nu__title">Welcome to C6.ca</h3>
+                  <p class="popup-nu__title">Save 10% off your first order with:</p>
+              </div>
+              <p class="popup-nu__discount">
+                <em class="popup-nu__discount-code">WELCOMETEN</em>
+              </p>
+              <button type="button" onclick="applyCoupon(this)" class="btn btn-action__coupon btn--sm" data-code="WELCOMETEN">Apply and continue</button>
+            </div>
+          </div>
+        {% endunless %}
+      {% endunless %}
+    {% endif %}
+
+    <header class="banner" data-header role="banner">
+      <div class="wrap">
+        {{ content_for_logo }}
+      </div>
+    </header>
+
+    {{ order_summary_toggle }}
+    <div class="content" data-content>
+      <div class="wrap">
+        <div class="main">
+          <header class="main__header" role="banner">
+            {{ content_for_logo }}
+            {{ breadcrumb }}
+            {{ alternative_payment_methods }}
+          </header>
+          <main class="main__content" role="main">
+            {{ content_for_layout }}
+          </main>
+          <footer class="main__footer" role="contentinfo">
+            {{ content_for_footer }}
+          </footer>
+        </div>
+        <aside class="sidebar" role="complementary">
+          <div class="sidebar__header">
+            {{ content_for_logo }}
+          </div>
+          <div class="sidebar__content">
+            {{ content_for_order_summary }}
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    {{ tracking_code }}
+    
+    <script>
+      let userEmail = `{{checkout.customer.email}}` ? `{{checkout.customer.email}}` : null
+      let userPhone = `{{checkout.customer.phone}}` ? `{{checkout.customer.phone}}`: null
+      let modalObj
+     function getParent(ele, parentClass="edit_checkout"){
+       var e = ele;
+       while(!e.classList.contains(parentClass)){
+         e=e.parentElement;
+       }
+       return e;
+     }
+      
+     const reductionCode =  document.querySelector('form .reduction-code__text')
+     
+     
+     const getStorageData = JSON.parse(localStorage.getItem('hideCouponModal'))
+     
+     if((reductionCode && (reductionCode.innerText = "WELCOMETEN")) || ((getStorageData && getStorageData.hideModal) && ((getStorageData.email === userEmail) || (getStorageData.phone === userPhone) ) )) {
+       document.querySelector('.popup').style.display = "none"
+       
+     } else {
+       modalObj = {email: `${userEmail}`, phone:`${userPhone}`, hideModal: false }
+       localStorage.setItem("hideCouponModal", JSON.stringify(modalObj))
+       document.querySelector('.popup').style.display = "flex"
+     }
+     function applyCoupon(elem){	
+       modalObj = {email: `${userEmail}`, phone:`${userPhone}`, hideModal: true }
+       localStorage.setItem("hideCouponModal", JSON.stringify(modalObj))
+       document.querySelector('#checkout_reduction_code').value = "WELCOMETEN"
+       getParent(document.querySelector('#checkout_reduction_code')).submit()
+      }
+    </script>
+    
+  </body>
+</html>

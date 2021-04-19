@@ -1,0 +1,291 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 4 version
+*/
+
+$grid-xl: 1440px;
+$grid-lg: 1024px;
+$grid-md: 768px;
+$grid-sm: 480px;
+
+// Global collection styles
+.collection--image img {
+  border-radius: 0;
+}
+.collection--item-title {
+  color: black;
+}
+.parrent-collection-btn {
+  display: inline-block;
+  font-size: 0 !important;
+  background: #e3231c;
+  width: 64px;
+  height: 64px;
+  border-radius: 50px;
+  position: relative;
+  float: left;
+  right: 20px;
+  svg {
+    position: absolute;
+    top: 50%;
+    left: 48%;
+    -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+  }
+}
+
+// Collection page
+#shopify-section-static-collection {
+
+  .productgrid--masthead.subcollection-global-banner {
+    background: {{ settings.color_layout_secondary_backgrounds }};
+    padding: 50px 0 0 50px;
+    margin-bottom: 50px;
+
+    @media screen and (max-width: 640px) {
+      padding: 25px 0 0 15px;
+      margin-bottom: 25px;
+    }  
+    @media screen and (max-width: 1023px) {
+      background-size: 60%!important;
+    }
+
+    .collection--information {
+      margin: auto auto auto 30px;
+      padding-bottom: 40px;
+    }
+    .collection--title, 
+    .collection--description {
+      width: 50%;
+      display: inline-block;
+      @media screen and (max-width: 640px) {
+        width: 75%;
+      }  
+    }
+
+  }
+  .productgrid--masthead.collection-banner-2-col {
+    background-color: #231F20;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: row-reverse;
+            flex-direction: row-reverse;
+    @media(max-width: 900px) {
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-flow: column;
+              flex-flow: column;
+    }
+
+    .collection--image {
+      -webkit-box-flex: 1;
+          -ms-flex: 1;
+              flex: 1;
+      @media(max-width: $grid-lg) { 
+        img { 
+          height: 100%;
+          -o-object-fit: cover;
+             object-fit: cover;
+        }
+      }
+    }
+    .collection--information {
+      -webkit-box-flex: .8;
+          -ms-flex: .8;
+              flex: .8;
+      margin-top: 40px;
+      @media(max-width: $grid-lg) {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        -webkit-box-flex: 1;
+            -ms-flex: 1;
+                flex: 1;
+        p{ margin-bottom: 20px; }     
+      }
+      @media(max-width: $grid-sm) {
+        margin-top: 0;
+        padding: 30px 0;
+      }
+    }
+    .collection--title, .collection--description p {
+      color: white;
+    }
+    .collection--title, .collection--description {
+      width: 80%;
+      margin: 20px auto auto auto;
+    }
+    .collection--title {
+      @media(max-width: $grid-sm) {
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+// Sub collection
+#sub-collection {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #F4F4F4;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin: 40px 0;
+  padding: 20px 25px 20px 45px;
+  color: black;
+  @media(max-width: $grid-md) {
+    display: block;
+  }
+  @media(max-width: $grid-sm) {
+    padding: 20px 0;
+
+    h2{ margin: 0 10px; text-align: center; }
+  }
+  
+  .listcollections--container {
+    margin: 0;
+    width: 100%;
+    padding: 0;
+  }
+  .listcollections--inner {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-evenly;
+    -ms-flex-flow: wrap;
+    flex-flow: row wrap;
+  }
+  .subcollection--item {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+    text-align: center;
+    margin: 1em auto;
+    @media(max-width: $grid-md) {
+      padding: 10px;
+    }
+  }
+  .collection--item-image {
+    border-radius: 500px;
+    overflow: hidden;
+    width: 100px;
+    height: 100px;
+  }
+  img {
+    width: 100px;
+    height: 100px;
+    -o-object-fit: cover;
+       object-fit: cover;
+  }
+}
+
+#sub-collection h2 {
+ display:none; 
+}
+
+// Cart page
+#shopify-section-static-cart {
+  .cart-checkout-wrapper {
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+
+    .cart-checkout {
+      width: 50%;
+    }
+    .button {
+      margin: 0;
+    }
+    
+    @media screen and (max-width: 900px){
+      flex-direction: column;
+
+      .cart-checkout{ width: 100%; }
+    }
+  }
+  .cart-item {
+    border-bottom: solid 1px #eaeaea;
+    border-radius: 0;
+  }
+
+  .form-field-select + .form-field-title {
+    top: -20px;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+            transform: translateX(-50%);
+  }
+  .form-field-select {
+    background: var(--grey--lt);
+    padding-left: 30px;
+    border: none;
+    border-radius: 500px;
+  }
+  .form-field-select-wrapper svg {
+    right: 1.275rem;
+    width: 10px;
+    height: 10px;
+  }
+  .cart-item--remove-link {
+    background-color: #000000;
+    color: white;
+  }
+  .cart-ordernote textarea {
+    background-color: #F4F4F4;
+    border: none;
+  }
+
+  .cart-continue {
+    text-transform: uppercase;
+  }
+}
+
+// Account pages
+.template-register {
+  //background: var(--grey--lt); 
+
+  h2 {
+    margin-top: 0;
+  }
+
+  .site-page-signup {
+    .icn {
+      width: 30px;
+      float: left;
+      display: inline-block;
+      height: 30px;
+      margin-right: 20px;
+    }
+  } 
+
+  .signup-container {
+    display: flex;
+    max-width: 1000px;
+    margin: auto;
+    @media(max-width $grid-sm) {
+      flex-direction: column;
+    }
+  }
+  .new_form {
+    padding: 30px 40px;
+    background: white;
+    border: solid 1px #252021;
+    margin: 25px;
+  }
+
+  .bottom-contact {
+    text-align: center;
+  }
+}
+

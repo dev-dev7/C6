@@ -1,0 +1,62 @@
+{% raw %}
+  <script id="product_bought_together-template" type="template/html">
+        <div id="ga-product_bought_together" class="ga ga-template_2 ga-products-box ga-product_bought_together">
+      <h2 class="ga-title">Bought Together</h2>
+            <div class="ga-products">
+        <div class="ga-products_image">
+          {% for product in products %}
+          {% assign first_available_variant = false %}
+          {% for variant in product.variants %}
+            {% if !first_available_variant and variant.available %}{% assign first_available_variant = variant %}{% endif %}
+          {% endfor %}
+          {% unless first_available_variant %}{% assign first_available_variant = product.variants[0] %}{% endunless %}
+          {% if product.images[0] %}
+            {% assign featured_image = product.images[0] | img_url: '350x' %}
+          {% else %}
+            {% assign featured_image = no_image_url | img_url: '350x' %}
+          {% endif %}
+          <div id="ga-product_{{product.id}}" class="ga-product {% if forloop.last %}last{% endif %}">
+            <a href="/products/{{product.handle}}">
+              <img id="ga-product_image_{{product.id}}" src="{{featured_image}}" alt="{{product.title}}"/>
+            </a>
+          </div>
+          {% endfor %}
+          <div class="ga-product-form">
+                        <div>Total price: <span class="ga-product_price ga-product_totalprice money">{{total_price | money}}</span></div>
+                                    <button class="ga-addalltocart" type="button" data-add="Add selected to cart" data-added="Added selected to cart">Add selected to cart</button>
+                      </div>
+        </div>
+      </div>
+      <ul class="ga-products-input">
+        {% for product in products %}
+        {% assign first_available_variant = false %}
+        {% for variant in product.variants %}
+          {% if !first_available_variant and variant.available %}{% assign first_available_variant = variant %}{% endif %}
+        {% endfor %}
+        {% unless first_available_variant %}{% assign first_available_variant = product.variants[0] %}{% endunless %}
+        {% if product.images[0] %}
+          {% assign featured_image = product.images[0] | img_url: '350x' %}
+        {% else %}
+          {% assign featured_image = no_image_url | img_url: '350x' %}
+        {% endif %}
+        <li class="ga-product" data-product-id="{{product.id}}">
+          <input class="selectedItem" checked type="checkbox" value="{{product.id}}"/>
+          <a class="ga-product_title" href="/products/{{product.handle}}">{% if product.id == cur_product_id %}<strong>This item: </strong>{% endif %}{{product.title}}</a>
+          {% assign variants_size = product.variants | size %}
+          <div data-mh="product_bought_together_variants-group" class="ga-product_variants-container ga-hide">
+            <select class="ga-product_variant_select {% if variants_size == 1 %}ga-hide{% endif %}">
+              {% for variant in product.variants %}<option {% unless variant.available %}disabled{% endunless %} data-image="{% if variant.featured_image.src %}{{variant.featured_image.src | img_url: '100x'}}{% elsif variant.featured_image %}{{variant.featured_image | img_url: '100x'}}{% else %}{{featured_image}}{% endif %}" data-available="{{variant.available}}" data-compare_at_price="{{variant.compare_at_price}}" data-price="{{variant.price}}" value="{{variant.id}}">{{variant.title}}{% unless variant.available %} - Sold out{% endunless %}</option>{% endfor %}
+            </select>
+          </div>
+                    <span class="ga-product_price-container">
+            <span class="ga-product_price money">{{first_available_variant.price | money}}</span>
+            {% if first_available_variant.compare_at_price > first_available_variant.price %}
+            <span class="ga-product_oldprice money">{{first_available_variant.compare_at_price | money}}</span>
+            {% endif %}
+          </span>
+                  </li>
+        {% endfor %}
+      </ul>
+          </div>
+      </script>
+{% endraw %}

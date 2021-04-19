@@ -1,0 +1,161 @@
+<style>
+  
+  .subcollection-collection--title{
+display: flex !important;
+flex-direction: row !important;
+position: relative !important;
+margin-left: 120px !important;
+margin-top: 35px !important;
+text-align: left !important;
+    flex-wrap:wrap !important;
+  }
+  
+  
+  .subcollection-collection-image {
+    position: absolute !important;
+height: auto !important;
+margin: 0 auto !important;
+    display: flex !important;
+flex-direction: row !important;
+  }
+  
+  
+  .subcollection--item-block {
+text-align: left !important;
+margin: 20px !important;
+width: 21% !important;
+justify-content: flex-start !important;
+display: flex !important;
+flex-direction: row !important;
+height: 100px !important;
+align-items: flex-start !important;
+align-content: flex-start !important;
+    
+    
+  }
+  
+  .subcollection-listcollections--inner {
+    display: flex !important;
+justify-content: flex-start !important;
+flex-flow: row wrap !important;
+align-content: flex-start !important;
+    align-items: flex-start !important;
+    
+  }
+  
+  .subcollection-collection--title a {
+   text-decoration: none; 
+  }
+  
+  
+  @media screen and (max-width:1149px) {
+    .subcollection--item-block {
+      width: 39% !important;
+      flex-direction: column !important;
+      height: 150px !important;
+    }
+    
+    
+    .subcollection-collection-image  {
+      flex-direction: column !important;
+    }
+    
+    .subcollection-collection--title {
+       flex-direction:column !important;
+      margin-left:0 !important;
+      margin-top:110px !important;
+        text-align:center !important;
+      width:100px !important;
+      font-size:0.85em !important;
+      
+    }
+    
+  }
+  
+  
+  @media screen and (max-width:923px) {
+    .subcollection--item-block {
+      width: 34% !important;
+      margin:20px auto !important;
+      
+    }
+    
+    
+  }
+  
+  
+</style>
+
+{% comment %}
+  @param block Object
+         Optional object to display block attributes if used as a block
+
+  @param collection Object
+         The collection to display
+
+  @param collection_image Object
+         Image object, can be used to override collection image
+
+  @param collection_image_alt String
+         String to show an alt tag on the image
+
+{% endcomment %}
+  
+{% assign onboard = false %}
+{% assign image = false %}
+{% assign image_alt = false %}
+
+{% if subcollection == blank or subcollection.empty? %}
+  {% assign onboard = true %}
+{% endif %}
+
+{% assign collection_title = subcollection.title %}
+{% assign collection_url = subcollection.url %}
+
+{% if onboard %}
+  {% assign collection_title = 'onboarding.collection.title' | t  %}
+  {% assign collection_url = '#' %}
+{% endif %}
+
+{% if collection_image and collection_image_alt %}
+  {% assign image = collection_image %}
+  {% assign image_alt = collection_image_alt %}
+{% elsif subcollection.image %}
+  {% assign image = subcollection.image %}
+  {% assign image_alt = subcollection.image.alt | escape %}
+{% else %}
+  {% assign image = subcollection.products.first.featured_media.preview_image %}
+  {% assign image_alt = collection_title | escape %}
+{% endif %}
+
+{% if collection.url != collection_url %}
+
+	{% unless subcollection.all_products_count <= 0 %}
+
+      <li class="subcollection--item subcollection--item-block" {% if block %}{{ block.shopify_attributes }}{% endif %}>
+        <a href="{{ collection_url }}" style="text-decoration: none;">
+          <figure class="collection--item-image subcollection-collection-image">
+            {% if image and image_alt %}
+            {% comment %}
+            {%
+                    include 'rimg',
+            img: image,
+            alt: image_alt,
+            size: '1350x',
+            lazy: settings.lazy_load,
+            canvas: settings.lazy_load
+            %}
+            {% endcomment %}
+            <img src="{{ image | img_url: '300x300' }}" alt="{{ image_alt }}">
+            {% endif %}
+          </figure>
+
+          <h5 class="collection--item-info collection--item-title subcollection-collection--title">
+            {{ collection_title }}
+          </h5>
+        </a>
+      </li>
+
+	{% endunless %}
+
+{% endif %}

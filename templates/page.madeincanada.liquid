@@ -1,0 +1,46 @@
+<article class="site-page" data-template-page>
+  <header class="page-masthead mic-title">
+    <h1 class="page-title">
+      {{ page.title }}
+    </h1>
+  </header>
+
+  {% if page.content != blank %}
+    <div class="page-content rte mic-content">
+      {{ page.content }}
+    </div>
+  {% endif %}
+</article>
+
+{% section 'mic-banner' %}
+
+{% section 'dynamic-promo-grid' %}
+
+{% section 'dynamic-image-with-text' %}
+
+{% section 'dynamic-newsletter' %}
+
+{% style %}
+.mic-title,
+.mic-content {
+	text-align: center;
+	margin: 0 auto;
+}
+
+.mic-content {
+  padding: 0px 30px;
+}
+
+@media(min-width: 1200px) {
+	.mic-content {
+		max-width: 950px;
+		font-size: 1.2rem;
+	}
+}
+
+@media screen and (max-width: 450px) {
+  .dynamic-newsletter-section .form-fields-inline {
+      flex-direction: column;
+  }
+}
+{% endstyle %}

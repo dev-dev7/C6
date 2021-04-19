@@ -1,0 +1,148 @@
+{% style %}
+  #shopify-section-{{section.id}} {
+    background-color: {{ section.settings.background_color }};
+  }
+
+  #shopify-section-{{section.id}} .custom-html--container {
+    padding-top: {{ section.settings.section_spacing_mobile }}px;
+    padding-bottom: {{ section.settings.section_spacing_mobile }}px;
+  }
+
+  @media screen and (min-width: 720px) {
+    #shopify-section-{{section.id}} .custom-html--container {
+      padding-top: {{ section.settings.section_spacing_desktop }}px;
+      padding-bottom: {{ section.settings.section_spacing_desktop }}px;
+    }
+  }
+{% endstyle %}
+
+<script
+  type="application/json"
+  data-section-id="{{ section.id }}"
+  data-section-type="dynamic-custom-html"
+></script>
+
+<section
+  class="
+    custom-html--container
+    custom-html-{{ section.settings.width }}
+  "
+>
+  {% for block in section.blocks %}
+    <div
+      class="
+        custom-html-block
+        {% if block.type == 'text' %}
+          custom-html-alignment-{{ block.settings.text_alignment }}
+        {% endif %}
+      "
+      {{ block.shopify_attributes }}
+    >
+      {% if block.type == 'text' %}
+        {% if block.settings.title != blank %}
+          <h2
+            class="
+              custom-html-heading
+              custom-html-heading-{{ block.settings.heading_size }}
+            "
+          >
+            {{ block.settings.title | escape }}
+          </h2>
+        {% endif %}
+
+        {% if block.settings.text != blank %}
+          <div class="custom-html-content rte" data-rte>
+            {{ block.settings.text }}
+          </div>
+        {% endif %}
+      {% elsif block.type == 'page' and block.settings.page %}
+        {% if block.settings.show_heading %}
+          <h2
+            class="
+              custom-html-heading
+              custom-html-heading-{{ block.settings.heading_size }}
+            "
+          >
+            {{ pages[block.settings.page].title | escape }}
+          </h2>
+        {% endif %}
+
+        <div class="custom-html-content rte" data-rte>
+          {{ pages[block.settings.page].content }}
+        </div>
+      {% endif %}
+    </div>
+  {% endfor %}
+</section>
+
+{% schema %}
+{
+  "name": "Custom HTML",
+  "class": "custom-html--section",
+  "max_blocks": 2,
+  "settings": [
+    {
+      "id": "width",
+      "type": "select",
+      "label": "Section width",
+      "options": [
+        {
+          "value": "regular",
+          "label": "Regular"
+        },
+        {
+          "value": "wide",
+          "label": "Wide"
+        },
+        {
+          "value": "full-width",
+          "label": "Full width"
+        }
+      ],
+      "default": "regular"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background color"
+    },
+    {
+      "type": "range",
+      "id": "section_spacing_desktop",
+      "label": "Desktop section spacing",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "section_spacing_mobile",
+      "label": "Mobile section spacing",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "html",
+          "id": "custom_html",
+          "label": "Your HTML",
+          "default": "<br>"
+        }
+    
+      ]
+    }
+    
+  ]
+}
+
+{% endschema %}

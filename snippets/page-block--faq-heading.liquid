@@ -1,0 +1,17 @@
+<section class="shopify-section section--faq-heading">
+  <div class="container">
+    <div class="icon">
+      {% if block.settings.icon != blank %}
+        {{ block.settings.icon | img_url: "master" | img_tag  }}
+      {% endif %}
+    </div>
+    <div class="text">
+      {% if block.settings.title != blank %}
+        <h2>{{ block.settings.title }}</h2> 
+      {% endif %}
+      {% if block.settings.content != blank %}
+        {{ block.settings.content }}
+      {% endif %}
+    </div>
+  </div>
+</section>

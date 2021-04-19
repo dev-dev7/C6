@@ -1,0 +1,47 @@
+<section class="page-masthead {% if block.settings.hero_img %}has-img{% endif %}"
+style="{% if block.settings.hero_img %} background: url({{block.settings.hero_img | img_url: 'master' }}) no-repeat 50% 50% / cover;{% endif %}">
+  {% if block.settings.hero_img and false %}
+    <figure class="collection--image">
+      {%
+        include 'rimg',
+        img: block.settings.hero_img,
+        size: '1350x',
+        lazy: settings.lazy_load,
+        canvas: settings.lazy_load
+      %}
+    </figure>
+  {% endif %}
+
+  <div class="collection--information" >
+    {% if block.settings.logo %}
+    <figure>
+      {%
+        include 'rimg',
+        img: block.settings.logo,
+        size: '300x',
+        lazy: settings.lazy_load,
+        canvas: settings.lazy_load
+      %}
+    </figure>
+    {% else %}
+      {% if block.settings.preheading != blank %}
+        <div class="collection--description rte u-h4" style="color: {{ block.settings.hero_color }}">
+          {{ block.settings.preheading }}
+        </div>
+      {% endif %}
+      <h1 class="collection-title {{ block.settings.heading-type }}" style="color: {{ block.settings.hero_color }}">
+        {{ block.settings.heading }}
+      </h1>
+      {% if block.settings.content != blank %}
+        <div class="collection--description rte u-h3" style="color: {{ block.settings.hero_color }}">
+          {{ block.settings.content }}
+        </div>
+      {% endif %}
+      {% if block.settings.button-text != blank %}
+        <a class="button button--primary " href="{{ block.settings.button-url }}">
+          <span class="button-text">{{ block.settings.button-text }}</span>
+        </a>
+      {% endif %}
+    {% endif %}
+  </div>
+</section>

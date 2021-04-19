@@ -1,0 +1,488 @@
+// ================================
+//
+//  Fonts
+//  -> Don't manually code elements to match Headings, use SCSS
+//
+// ================================
+ 
+ 
+  // ------------------------------
+  //  Font Face
+  // ------------------------------
+
+    
+    // ----- Site Font Mixins ----- //
+
+    @mixin soliel($weight: 300) { 
+      font-family: soleil, sans-serif!important;
+      font-weight: $weight!important;
+      line-height: 1.26em!important;
+      font-style: normal;
+    }
+
+
+
+  // ------------------------------
+  //  END Font Face
+  // ------------------------------
+
+
+
+  // ------------------------------
+  //  Modifiers
+  // ------------------------------
+
+
+    // ----- No Hyphens ----- //
+
+    .no-hyphens{
+      -moz-hyphens: none; -ms-hyphens: none; 
+      -webkit-hyphens: none; hyphens: none;
+      word-break: keep-all; 
+    }
+
+
+    // ----- Uppercase ----- //
+    
+    .upper{
+      text-transform: uppercase!important;
+    }
+    
+
+    // ----- Underline ----- //
+
+    .underline{
+      text-decoration: underline!important;
+    }
+
+
+    // ----- Center Align ----- //
+
+    .center{
+      text-align: center!important;
+    }
+
+
+    // ----- Small ----- //
+
+    .small {
+      @extend .u-h7;
+    }
+
+
+    // ----- Copyright ----- //
+    
+    .small-copyright {
+      font-size: 11px!important;
+    }
+    
+
+    // ----- Grey ----- //
+
+    .grey{ color: var(--grey--dk); }
+
+  // ------------------------------
+  //  END Modifiers
+  // ------------------------------
+
+
+
+  // ------------------------------
+  //  Headings
+  // ------------------------------
+
+
+    // ----- H1 ----- //
+
+    .u-h1, body h1, .Rte h1, .u-h1 a{
+      @include soliel(700);
+      font-size: 45px!important;
+
+      @media screen and (max-width: 900px){
+        font-size: 26px!important;
+      }
+    }
+    .Section--instafeed .u-h1,
+    .Section--instafeed .u-h1 a,
+    #shopify-section-1602794562170 .u-h1,
+    #shopify-section-1602794562170 .u-h1 a,
+    .Section--custom-html .u-h1,
+    .Section--custom-html .u-h1 a{
+      @media screen and (max-width: 900px){
+
+      }
+    }
+
+    
+    // ----- H2 ----- //
+    
+    .u-h2, body h2, .Rte h2, .u-h2 a{
+      @include soliel(400);
+      font-size: 35px!important;
+
+      @media screen and (max-width: 900px){
+        font-size: 24px!important;
+      }
+    }
+    .quickshop-thumbs-left .product-title a,
+    .okeReviews-reviewsCarousel-heading,
+    .product-readmore summary .summary-wrapper .headline{
+      @extend .u-h2;
+    }
+
+    
+    // ----- H3 ----- //
+    
+    .u-h3, body h3, .Rte h3, body h3 a, body .u-h3 a, #insta-feed h2 {
+      @include soliel();
+      font-size: 21px!important;
+      
+      @media screen and (max-width: 1023px){
+        font-size: 18px!important;
+      }
+    }
+    body .hulkapps .hulk_pro_detail h3 a,
+    body .u-h3.Rte a,
+    .okeReviews .okeReviews-review-main-heading,
+    .okeReviews-review-reviewer-profile-name{
+      @extend .u-h3;
+    }
+
+
+    // ----- H4 ----- //
+
+    .u-h4, body h4, .Rte h4, .u-h4 a, .crossselltitle {
+      @include soliel(700);
+      font-size: 19px!important;
+      text-transform: uppercase!important;
+      
+      @media screen and (max-width: 900px){
+        font-size: 16px!important;
+      }
+    }
+    body .hulkapps .hulk_pop_up .hulk_modal-content .hulk_modal-header h2,
+    .template-product .u-h5 .money,
+    body .u-h3.Rte strong,
+    .okeReviews-reviewsAggregate-summary .okeReviews-badge--rating span{
+      @extend .u-h4;
+    }
+
+
+    // ----- H5 ----- //
+
+    .u-h5, body h5, body h5 a, .Rte h5, .u-h5 a{
+      @include soliel(400);
+      font-size: 15px!important;
+      
+      @media screen and (max-width: 1023px){
+        
+      }
+    }
+    body .hulkapps .hulk_pop_up .hulk_modal-content .hulk_qty_input,
+    body .hulkapps .hulk_pop_up .hulk_modal-content .hulk_notes textarea,
+    body .hulkapps h3,
+    body .hulkapps .hulk_pop_up .hulk_modal-content .hulk_total_price h3, 
+    body .hulkapps .hulk_pop_up .hulk_modal-content .hulk_total h3,
+    body .hulk_list-title span,
+    .u-h5 .money,
+    .okeReviews-reviewsAggregate-recommends,
+    // .quickshop-thumbs-left .product-title a,
+    .form-field-input{
+      @extend .u-h5;
+    }
+    body .hulkapps .hulk_pop_up .hulk_modal-content .hulk_qty_input,
+    .hulkapps .hulk_pop_up .hulk_modal-content .hulk_notes textarea{
+      background: var(--grey--lt);
+      border: none;
+    }
+    body .hulkapps .hulk_pop_up .hulk_modal-content .hulk_qty_input{ border-radius: 500px; }
+    body .hulkapps .hulk_pop_up .hulk_modal-content .hulk_total h3{ font-weight: 600!important; }
+    body .hulk_list-title span{ color: #000!important; }
+
+
+    // ----- H6 ----- //
+    
+    .u-h6, body h6, .Rte h6, .u-h6 a{
+      @include soliel();
+      font-size: 13px!important;
+      
+      @media screen and (max-width: 1023px){
+        
+      }
+    } 
+    body .hulkapps .hulk_pop_up .hulk_modal-content .hulk_text-danger,
+    .product-vendor a,
+    .quickshop-thumbs-left .product-vendor a,
+    .form-field-title:not(.u-h5),
+    .site-footer .navmenu-link,
+    .AnnouncementBar__Content{
+      @extend .u-h6;
+    }
+
+
+    // ----- H7 ----- //
+    
+    .u-h7, body h7, .Rte h7, .u-h7 a{
+      
+      @media screen and (max-width: 1023px){
+        
+      }
+    }
+
+    // ----- H8 ----- //
+    
+    .u-h8, body h8, .Rte h8, .u-h8 a{
+
+      @media screen and (max-width: 1023px){
+        
+      }
+    }
+    
+
+  // ------------------------------
+  //  END Headings
+  // ------------------------------
+
+
+
+  // ------------------------------
+  //  Body Copy
+  // ------------------------------
+
+
+    .body, body, body p{
+      @include soliel();
+      
+      @media screen and (min-width: 1024px) and (max-width: 1279px){
+      }
+    }
+
+    .Table td,
+    .AccountTable .CartItem__Meta {
+        
+      @media screen and (min-width: 1024px) and (max-width: 1279px){
+      }
+    }
+
+    label,
+    .ProductForm__Label,
+    summary .sub-headline {
+      @extend .body;
+    }
+
+    .body strong, body strong, p strong{ 
+      @include soliel(700);
+    }
+
+    .featured-collection--banner-subtitle { font-weight: 400; }
+
+  // ------------------------------
+  //  END Body Copy
+  // ------------------------------
+
+
+
+  // ------------------------------
+  //  Links
+  // ------------------------------
+
+
+    // ----- Primary Nav ----- //
+    
+    .nav--primary{
+      @extend .u-h5;
+      text-transform: none;
+      
+      // @media screen and (max-width: 900px){
+        // font-size: 13px!important;
+      // }
+    }
+
+    .site-navigation a, 
+    .site-navigation .navmenu-depth-1 > li > a, 
+    .mobile-nav-content .navmenu-depth-1 > .navmenu-item > .navmenu-link,
+    .announcement-bar{
+      @extend .nav--primary;
+    }
+    .announcement-bar{
+      @media screen and (max-width: 900px){
+        font-size: 13px!important;
+      }
+    }
+
+
+    // ----- Seconday Nav ----- //
+
+    .nav--secondary{
+      @extend .u-h6;
+      text-transform: none; text-decoration: none;
+      color: #000;
+    }
+
+    .site-header-actions, 
+    .site-header-actions a, 
+    .utility-bar a{
+      @extend .nav--secondary;
+    }
+
+
+    // ----- Text Links ----- //
+
+    .a, body a, .Rte a:not(.button){
+      @include soliel(400);
+      font-size: 16px!important;
+      color: inherit;
+
+      @media screen and (max-width: 1023px){
+        
+      }
+    }
+
+    small a{ text-decoration: underline; }
+    .dynamic-collection-list--item-link{ text-decoration: none; }
+
+
+    // ----- Buttons ----- //
+    
+    .button{
+      @include soliel(800);
+      font-size: 15px;
+      letter-spacing: .07em;
+      font-variant: small-caps;
+      text-transform: lowercase!important;
+
+      display: inline-block;
+      // padding: 15px 30px!important; 
+      padding: 12px 30px 16px!important; 
+      margin: 15px 0;
+      border-radius: 500px!important; border: none!important;
+      text-decoration: none;
+
+      transition: all .1s;
+      
+      &, 
+      &:before{
+        // background-color: var(--button-background);
+        // border-color: transparent;
+        // transition: all .3s;
+      }
+
+      &:hover,
+      &:hover:before{
+        // color: var(--button-background);
+        // background: var(--black)!important;
+      }
+    }
+
+    .button--primary{
+      background: var(--red);
+      color: #fff!important;
+
+      &:hover{ background: var(--red--dk); }
+    }
+    .button--secondary{
+      background: #000;
+      color: #fff!important;
+
+      &:hover{ background: var(--grey--dk); }
+    }  
+    .button--text{
+      color: #000;
+      padding: 0!important;
+      border-radius: 0!important;
+    }
+
+    .okeReviews-select select{
+      @extend .button;
+    }
+
+    .minmaxify-ok,
+    body .hulk_reorder_order_detail_page,
+    body .hulk_reorder_button,
+    body .hulkapps .hulk_pop_up .hulk_modal-content .hulk_addtocart,
+    .shopify-payment-button__button{
+      @extend .button;
+      @extend .button--primary;
+    }
+
+    .button-secondary,
+    body .hulkapps .hulk_pop_up .hulk_modal-content .hulk_checkout{
+      @extend .button;
+      @extend .button--secondary;
+    }
+
+    .okeReviews .okeReviews-button.okeReviews-reviewsWidget-header-controls-writeReview{
+      @extend .button;
+      @extend .button--secondary;
+      width: 300px; text-align: center;
+
+      @media screen and (max-width: 640px){
+        width: 100%;
+      }
+    }
+    
+
+  // ------------------------------
+  //  END Links
+  // ------------------------------
+
+
+
+  // ------------------------------
+  //  Forms
+  // ------------------------------
+
+    .form-field-select-wrapper .form-field-select{
+      @include soliel(800);
+      font-size: 15px;
+      letter-spacing: .07em;
+      font-variant: small-caps;
+      text-transform: lowercase!important;
+    }
+    .form-field-title:not([for*="newsletter_email"]){
+      // top: .875rem;
+      top: 1rem;
+
+      &:before{ display: none; }
+    }
+    .no-js .form-field-input + .form-field-title, 
+    .no-js .rte input + .form-field-title, 
+    .rte .no-js input + .form-field-title, 
+    .no-js .dynamic-newsletter-text input + .form-field-title, 
+    .dynamic-newsletter-text .no-js input + .form-field-title, 
+    .no-js .product-reviews--content .spr-form .spr-form-input-text + .form-field-title, 
+    .product-reviews--content .spr-form .no-js .spr-form-input-text + .form-field-title, 
+    .no-js .product-reviews--content .spr-form .spr-form-input-email + .form-field-title, 
+    .product-reviews--content .spr-form .no-js .spr-form-input-email + .form-field-title, 
+    .no-js .product-reviews--content .spr-form .spr-form-input-textarea + .form-field-title, 
+    .product-reviews--content .spr-form .no-js .spr-form-input-textarea + .form-field-title, 
+    .form-field-input:focus + .form-field-title, 
+    .rte input:focus + .form-field-title, 
+    .dynamic-newsletter-text input:focus + .form-field-title, 
+    .product-reviews--content .spr-form .spr-form-input-text:focus + .form-field-title, 
+    .product-reviews--content .spr-form .spr-form-input-email:focus + .form-field-title, 
+    .product-reviews--content .spr-form .spr-form-input-textarea:focus + .form-field-title, 
+    .form-field-filled.form-field-input + .form-field-title, 
+    .rte input.form-field-filled + .form-field-title, 
+    .dynamic-newsletter-text input.form-field-filled + .form-field-title, 
+    .product-reviews--content .spr-form .form-field-filled.spr-form-input-text + .form-field-title, 
+    .product-reviews--content .spr-form .form-field-filled.spr-form-input-email + .form-field-title, 
+    .product-reviews--content .spr-form .form-field-filled.spr-form-input-textarea + .form-field-title, 
+    .form-field-select.form-field-input + .form-field-title, 
+    .rte input.form-field-select + .form-field-title, 
+    .dynamic-newsletter-text input.form-field-select + .form-field-title, 
+    .product-reviews--content .spr-form .form-field-select.spr-form-input-text + .form-field-title, 
+    .product-reviews--content .spr-form .form-field-select.spr-form-input-email + .form-field-title, 
+    .product-reviews--content .spr-form .form-field-select.spr-form-input-textarea + .form-field-title{
+      top: 2px;
+      font-size: 10px!important;
+    }
+
+  // ------------------------------
+  //  END Forms
+  // ------------------------------
+
+
+// ================================
+//  END Fonts
+// ================================
