@@ -37,6 +37,7 @@
       {% endif %}
     </div>
   </div>
+  <div id="custom-account-page"></div>
   <div class="customer-category">
     <div class="customer-category-row">
       <div class="customer-category-col" id="details">
@@ -363,8 +364,9 @@
       }
     });
     function topFunction() {
-      document.body.scrollTop = 0; // For Safari
-      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+      var height = $("#custom-account-page").offset().top - 130;
+      document.body.scrollTop = height; // For Safari
+      document.documentElement.scrollTop = height; // For Chrome, Firefox, IE and Opera
     }
     var i=0;
     $(".toggle-become-terms").click(function(){
@@ -488,7 +490,7 @@
       $(".customer-email").addClass("modal-display-none");
       var phone_number = $("#customer_addr__phone").val();
       if(phone_number != "") {
-        $("#phone-number").text("Edit");
+        $("#phone-number").text("EDIT");
       } else {
         $(".customer-modal-title").text("Add Phone Number");
       }
@@ -540,7 +542,7 @@
       $(".customer-address").addClass("modal-display-none");
       $(".customer-name").text(first_name + " " + last_name);
       if(phone_number != "") {
-        $("#phone-number").text("Edit");
+        $("#phone-number").text("EDIT");
         $("#phone-number").removeClass("add-phone");
         $(".customer-modal-title").text("Edit Phone Number");
         $(".customer-phone").text(addDashes(phone_number));
@@ -574,7 +576,6 @@
 
     window.onhashchange = function() {
       var hash = location.hash;
-      console.log(hash);
       if(!hash) {
         $(".account-orders").addClass("display-none");
         $(".account-subscriptions").addClass("display-none");
